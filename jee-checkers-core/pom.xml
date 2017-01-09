@@ -3,13 +3,13 @@
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
-    <groupId>org.dmetzler.isen.jee</groupId>
-    <artifactId>jee-bootstrap-parent</artifactId>
+    <groupId>org.labs.isen.jee</groupId>
+    <artifactId>jee-checkers-parent</artifactId>
     <version>1.0-SNAPSHOT</version>
   </parent>
 
 
-  <artifactId>jee-bootstrap-core</artifactId>
+  <artifactId>jee-checkers-core</artifactId>
   <name>JEE Bootstrap :: Core model</name>
   <packaging>jar</packaging>
 

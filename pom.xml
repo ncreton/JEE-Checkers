@@ -3,10 +3,10 @@
   <modelVersion>4.0.0</modelVersion>
 
 
-  <groupId>org.dmetzler.isen.jee</groupId>
-  <artifactId>jee-bootstrap-parent</artifactId>
+  <groupId>org.labs.isen.jee</groupId>
+  <artifactId>jee-checkers-parent</artifactId>
   <version>1.0-SNAPSHOT</version>
-  <name>Puissance 4 :: parent</name>
+  <name>Checkers :: parent</name>
   <packaging>pom</packaging>
   <description></description>
 
@@ -18,7 +18,7 @@
   </properties>
 
   <modules>
-    <module>jee-bootstrap-core</module>
+    <module>jee-checkers-core</module>
     <!-- module>jee-bootstrap-jpa</module>
     <module>jee-bootstrap-web</module>
     <module>jee-bootstrap-rest</module -->
