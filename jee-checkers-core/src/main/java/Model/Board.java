@@ -48,7 +48,7 @@ public class Board {
             for (int col = 0; col < nbCols; col++) {
                 Cell currentCell = cells.get(row).get(col);
                 if (currentCell.getCellColor() == Color.BLACK) {
-                    currentCell.setPawn(new NormalPawn(Color.WHITE));
+                    currentCell.setPawn(new NormalPawn(Color.WHITE, currentCell));
                 }
             }
         }
@@ -59,7 +59,7 @@ public class Board {
             for (int col = 0; col < nbCols; col++) {
                 Cell currentCell = cells.get(row).get(col);
                 if (currentCell.getCellColor() == Color.WHITE) {
-                    currentCell.setPawn(new NormalPawn(Color.BLACK));
+                    currentCell.setPawn(new NormalPawn(Color.BLACK, currentCell));
                 }
             }
         }
