@@ -39,7 +39,34 @@ public class Board {
     }
 
     private void initPawns() {
+        //Put black pawns on white cells on the fourth first line
+        initBlackPawns();
+        //Put white pawns on black cells on the fourth last lines
+        initWhitePawns();
+    }
 
+    private void initWhitePawns() {
+        for (int row = nbRows - 1; row < nbRows - 4; row--) {
+            for (int col = 0; col < nbCols; col++) {
+                Cell currentCell = cells.get(row).get(col);
+                if (currentCell.getCellColor() == CellColor.BLACK) {
+                    //TODO Define the type of Pawn
+                    currentCell.setPawn(new NormalPawn());
+                }
+            }
+        }
+    }
+
+    private void initBlackPawns() {
+        for (int row = 0; row < 4; row++) {
+            for (int col = 0; col < nbCols; col++) {
+                Cell currentCell = cells.get(row).get(col);
+                if (currentCell.getCellColor() == CellColor.WHITE) {
+                    //TODO Define the type of Pawn
+                    currentCell.setPawn(new NormalPawn());
+                }
+            }
+        }
     }
 
     public List<List<Cell>> getCells() {
