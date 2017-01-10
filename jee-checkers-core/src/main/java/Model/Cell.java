@@ -13,8 +13,15 @@ public class Cell {
     public Cell(int row, int col) {
         rowIndex = row;
         colIndex = col;
-        //TODO : compute the color based on the position of the cell
-        cellColor = Color.BLACK;
+        cellColor = computeColorCell(row, col);
+    }
+
+    private Color computeColorCell(int row, int col) {
+        if ((row % 2 == 0 && col % 2 == 0) || (row % 2 != 0 && col % 2 != 0)) {
+            return Color.WHITE;
+        } else {
+            return Color.BLACK;
+        }
     }
 
     public Color getCellColor() {
