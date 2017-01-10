@@ -7,22 +7,22 @@ public class Cell {
 
     private int rowIndex;
     private int colIndex;
-    private CellColor cellColor;
+    private Color cellColor;
     private Pawn pawn;
 
     public Cell(int row, int col) {
         rowIndex = row;
         colIndex = col;
         //TODO : compute the color based on the position of the cell
-        cellColor = CellColor.BLACK;
+        cellColor = Color.BLACK;
     }
 
-    public CellColor getCellColor() {
+    public Color getCellColor() {
         return cellColor;
     }
 
-    public void setCellColor(CellColor cellColor) {
-        this.cellColor = cellColor;
+    public void setCellColor(Color color) {
+        this.cellColor = color;
     }
 
     public Pawn getPawn() {
