@@ -10,18 +10,16 @@ public class Board {
 
     private int nbRows;
     private int nbCols;
-    private int nbPawns;
     private List<List<Cell>> cells;
 
     public Board() {
         //Default board if no size and pawns are given
-        new Board(10, 10, 20);
+        new Board(10, 10);
     }
 
-    public Board(int nbRows, int nbCols, int nbPawns) {
+    public Board(int nbRows, int nbCols) {
         this.nbRows = nbRows;
         this.nbCols = nbCols;
-        this.nbPawns = nbPawns;
         this.cells = initCells();
         initPawns();
     }
@@ -50,7 +48,6 @@ public class Board {
             for (int col = 0; col < nbCols; col++) {
                 Cell currentCell = cells.get(row).get(col);
                 if (currentCell.getCellColor() == CellColor.BLACK) {
-                    //TODO Define the type of Pawn
                     currentCell.setPawn(new NormalPawn());
                 }
             }
@@ -62,7 +59,6 @@ public class Board {
             for (int col = 0; col < nbCols; col++) {
                 Cell currentCell = cells.get(row).get(col);
                 if (currentCell.getCellColor() == CellColor.WHITE) {
-                    //TODO Define the type of Pawn
                     currentCell.setPawn(new NormalPawn());
                 }
             }
