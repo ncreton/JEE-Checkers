@@ -6,11 +6,8 @@ package Model;
 public abstract class Pawn {
     private Color pawnColor;
 
-    private Cell cellOn;
-
-    public Pawn(Color pawnColor, Cell currentCell) {
+    public Pawn(Color pawnColor) {
         this.pawnColor = pawnColor;
-        this.cellOn = currentCell;
     }
 
     public abstract void movePawn(Cell toCell);
@@ -21,13 +18,5 @@ public abstract class Pawn {
 
     public void setPawnColor(Color pawnColor) {
         this.pawnColor = pawnColor;
-    }
-
-    public Cell getCellOn() {
-        return cellOn;
-    }
-
-    public void setCellOn(Cell cellOn) {
-        this.cellOn = cellOn;
     }
 }

@@ -6,7 +6,7 @@ package Model;
 public class NormalPawn extends Pawn {
 
     public NormalPawn(Color color, Cell currentCell) {
-        super(color, currentCell);
+        super(color);
     }
 
     @Override
