@@ -1,3 +1,4 @@
+import Game.GameCheckersImpl;
 import Model.Board;
 import org.junit.Assert;
 import org.junit.Before;
@@ -12,17 +13,19 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 public class GameCheckersTest {
 
+    private GameCheckersImpl game;
     private Board board;
 
     @Before
     public void setUp() throws Exception {
-        this.board = new Board(10,10);
+        this.game = new GameCheckersImpl();
+        this.board = game.getBoard();
     }
 
     @Test
     public void selectedCellIsOnTheBoard() throws Exception {
         try {
-            board.movePawn(100,100,100,100);
+            game.movePawn(board,100,100,100,100);
             Assert.fail("Selected cell should be on the board");
         }catch (GameException g){
         }
@@ -32,7 +35,7 @@ public class GameCheckersTest {
     public void selectedCellContainsPawn() throws Exception {
 
         try{
-            board.movePawn(3,1,2,4);
+            game.movePawn(board,3,1,2,4);
             Assert.fail("Selected cell does not contains pawn");
         }catch (GameException g){
 

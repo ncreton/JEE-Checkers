@@ -4,6 +4,7 @@ import Model.Board;
 import Model.Cell;
 import Model.Color;
 import Model.Pawn;
+import Exception.*;
 
 import java.util.List;
 
@@ -31,6 +32,25 @@ public class GameCheckersImpl implements GameCheckers {
 
     }
 
+    public void movePawn(Board board, int originRow, int originCol, int destRow, int destCol) throws GameException {
+        Cell originCell = null;
+        Cell destCell = null;
+
+        if (board.isCoordinateInTheBoard(originRow, originCol) && board.isCoordinateInTheBoard(destRow, destCol)){
+            originCell = board.getCell(originRow, originCol);
+            destCell = board.getCell(destRow, destCol);
+        }else {
+            throw new GameException("Coordinate are out of the board");
+        }
+
+        //Check if the selected cell contains pawn
+        if (originCell.hasPawn() == true){
+
+        }else{
+            throw new GameException("Cell does not contains pawn");
+        }
+    }
+
     @Override
     public boolean isQueenPosition(Cell cell) {
         if(cell.getRowIndex() == 0){
@@ -44,5 +64,9 @@ public class GameCheckersImpl implements GameCheckers {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         return new String("");
+    }
+
+    public Board getBoard() {
+        return board;
     }
 }

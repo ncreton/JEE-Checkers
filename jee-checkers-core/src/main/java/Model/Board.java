@@ -85,23 +85,6 @@ public class Board {
         return false;
     }
 
-    public void movePawn(int originRow, int originCol, int destRow, int destCol) throws GameException {
-        Cell originCell = null;
-        Cell destCell = null;
 
-        if (isCoordinateInTheBoard(originRow, originCol) && isCoordinateInTheBoard(destRow, destCol)){
-            originCell = getCell(originRow, originCol);
-            destCell = getCell(destRow, destCol);
-        }else {
-            throw new GameException("Coordinate are out of the board");
-        }
-
-        //Check if the selected cell contains pawn
-        if (originCell.hasPawn() == true){
-
-        }else{
-            throw new GameException("Cell does not contains pawn");
-        }
-    }
 
 }
