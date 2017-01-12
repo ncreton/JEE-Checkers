@@ -39,4 +39,20 @@ public class Cell {
     public void setPawn(Pawn pawn) {
         this.pawn = pawn;
     }
+
+    public int getRowIndex() {
+        return rowIndex;
+    }
+
+    public void setRowIndex(int rowIndex) {
+        this.rowIndex = rowIndex;
+    }
+
+    public int getColIndex() {
+        return colIndex;
+    }
+
+    public void setColIndex(int colIndex) {
+        this.colIndex = colIndex;
+    }
 }
