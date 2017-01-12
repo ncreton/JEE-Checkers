@@ -10,6 +10,4 @@ import Model.Pawn;
 public interface GameCheckers {
 
     void play(Pawn pawn, int row, int column);
-
-    boolean isQueenPosition(Cell cell);
 }

@@ -13,10 +13,6 @@ import java.util.List;
  */
 public class GameCheckersImpl implements GameCheckers {
 
-    public static final int COLUMNS_NUMBER = 10;
-    public static final int ROWS_NUMBER = 10;
-    public static final int NUMBER_OF_PAWNS_TO_ALIGN = 10;
-    public static final String OUTSIDE_OF_BOARD_ERROR = "It is not possible to play outside of the board";
     private Board board;
 
     public GameCheckersImpl() {
@@ -25,6 +21,10 @@ public class GameCheckersImpl implements GameCheckers {
 
     public GameCheckersImpl(int rows, int columns) {
         this.board = new Board(rows, columns);
+    }
+
+    public Board getBoard() {
+        return this.board;
     }
 
     @Override
@@ -51,9 +51,8 @@ public class GameCheckersImpl implements GameCheckers {
         }
     }
 
-    @Override
-    public boolean isQueenPosition(Cell cell) {
-        if(cell.getRowIndex() == 0){
+    private boolean isQueenPosition(Cell cell) {
+        if(cell.getRowIndex() == 0 || cell.getRowIndex() == getBoard().getNbRows() -1){
             return true;
         }
         return false;
@@ -63,10 +62,22 @@ public class GameCheckersImpl implements GameCheckers {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        return new String("");
-    }
 
-    public Board getBoard() {
-        return board;
+        for(int row = getBoard().getNbRows() - 1; row >=0; row--){
+            sb.append("|");
+            for(int col = 0; col < getBoard().getNbCols(); col++){
+                if(getBoard().getCell(row, col).getPawn().getPawnColor() == Color.BLACK) {
+                    sb.append("X");
+                }
+                else if(getBoard().getCell(row, col).getPawn().getPawnColor() == Color.WHITE) {
+                    sb.append("O");
+                }
+                else{
+                    sb.append(" ");
+                }
+            }
+            sb.append("\n");
+        }
+        return sb.toString();
     }
 }

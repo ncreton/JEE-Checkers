@@ -85,6 +85,11 @@ public class Board {
         return false;
     }
 
+    public int getNbRows() {
+        return nbRows;
+    }
 
-
+    public int getNbCols() {
+        return nbCols;
+    }
 }
