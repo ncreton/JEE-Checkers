@@ -55,4 +55,10 @@ public class Cell {
     public void setColIndex(int colIndex) {
         this.colIndex = colIndex;
     }
+
+    public boolean hasPawn(){
+        if (this.pawn != null){
+            return true;
+        }else return false;
+    }
 }
