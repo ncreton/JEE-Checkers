@@ -2,10 +2,8 @@ package Game;
 
 import Model.Board;
 import Model.Cell;
-import Model.Color;
 import Model.Pawn;
 import Exception.*;
-import com.sun.tools.doclets.formats.html.SourceToHTMLConverter;
 
 import java.util.List;
 
@@ -18,7 +16,6 @@ public class GameCheckersImpl implements GameCheckers {
 
     public GameCheckersImpl() {
         this.board = new Board();
-        System.out.println(this.board);
     }
 
     public GameCheckersImpl(int rows, int columns) {

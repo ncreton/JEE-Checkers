@@ -45,7 +45,7 @@ public class Board {
     }
 
     private void initWhitePawns() {
-        for (int row = nbRows - 1; row < nbRows - 4; row--) {
+        for (int row = nbRows - 1; row >= nbRows - 4; row--) {
             for (int col = 0; col < nbCols; col++) {
                 Cell currentCell = getCell(row, col);
                 if (currentCell.getCellColor() == Color.BLACK) {
