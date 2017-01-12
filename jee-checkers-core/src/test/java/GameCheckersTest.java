@@ -33,7 +33,6 @@ public class GameCheckersTest {
 
     @Test
     public void selectedCellContainsPawn() throws Exception {
-
         try{
             game.movePawn(board,3,1,2,4);
             Assert.fail("Selected cell does not contains pawn");
