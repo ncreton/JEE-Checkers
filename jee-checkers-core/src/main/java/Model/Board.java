@@ -2,6 +2,7 @@ package Model;
 
 import java.util.ArrayList;
 import java.util.List;
+import Exception.*;
 
 /**
  * Created by Nicolas on 09/01/2017.
@@ -71,6 +72,13 @@ public class Board {
 
     public void setCells(List<List<Cell>> cells) {
         this.cells = cells;
+    }
+
+    public void movePawn(int originRow, int originCol, int destRow, int destCol) throws GameException {
+        //Test if the selected cells are in the board
+        if (originRow > nbRows || originCol > nbCols || destRow > nbRows || destCol > nbCols ){
+            throw new GameException("Selected cell are out of the board");
+        }
     }
 
 }
