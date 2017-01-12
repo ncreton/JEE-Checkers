@@ -5,6 +5,7 @@ import org.junit.Test;
 import Exception.*;
 
 import static junit.framework.TestCase.fail;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Created by nicolas on 12/01/2017.
@@ -19,7 +20,7 @@ public class GameCheckersTest {
     }
 
     @Test
-    public void selectedCellInOnTheBoard() throws Exception {
+    public void selectedCellIsOnTheBoard() throws Exception {
         try {
             board.movePawn(100,100,100,100);
             Assert.fail("Selected cell should be on the board");
@@ -29,13 +30,17 @@ public class GameCheckersTest {
 
     @Test
     public void selectedCellContainsPawn() throws Exception {
+
+        try{
+            board.movePawn(3,1,2,4);
+            Assert.fail("Selected cell does not contains pawn");
+        }catch (GameException g){
+
+        }
     }
 
     @Test
     public void moveOutsideBoardTest() throws Exception {
     }
 
-    @Test
-    public void moveNormalTest() throws Exception {
-    }
 }

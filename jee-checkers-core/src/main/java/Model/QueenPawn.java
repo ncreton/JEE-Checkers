@@ -5,7 +5,7 @@ package Model;
  */
 public class QueenPawn extends Pawn {
 
-    public QueenPawn(Color pawnColor, Cell currentCell) {
+    public QueenPawn(Color pawnColor) {
         super(pawnColor);
     }
 

@@ -39,4 +39,10 @@ public class Cell {
     public void setPawn(Pawn pawn) {
         this.pawn = pawn;
     }
+
+    public boolean hasPawn(){
+        if (this.pawn != null){
+            return true;
+        }else return false;
+    }
 }

@@ -47,9 +47,9 @@ public class Board {
     private void initWhitePawns() {
         for (int row = nbRows - 1; row < nbRows - 4; row--) {
             for (int col = 0; col < nbCols; col++) {
-                Cell currentCell = cells.get(row).get(col);
+                Cell currentCell = getCell(row, col);
                 if (currentCell.getCellColor() == Color.BLACK) {
-                    currentCell.setPawn(new NormalPawn(Color.WHITE, currentCell));
+                    currentCell.setPawn(new NormalPawn(Color.WHITE));
                 }
             }
         }
@@ -58,9 +58,9 @@ public class Board {
     private void initBlackPawns() {
         for (int row = 0; row < 4; row++) {
             for (int col = 0; col < nbCols; col++) {
-                Cell currentCell = cells.get(row).get(col);
-                if (currentCell.getCellColor() == Color.WHITE) {
-                    currentCell.setPawn(new NormalPawn(Color.BLACK, currentCell));
+                Cell currentCell = getCell(row, col);
+                if (currentCell.getCellColor() == Color.BLACK) {
+                    currentCell.setPawn(new NormalPawn(Color.BLACK));
                 }
             }
         }
@@ -74,10 +74,33 @@ public class Board {
         this.cells = cells;
     }
 
+    public Cell getCell(int row, int col){
+        return this.cells.get(row).get(col);
+    }
+
+    public boolean isCoordinateInTheBoard(int row, int col){
+        if (row < nbRows || col < nbCols){
+            return true;
+        }
+        return false;
+    }
+
     public void movePawn(int originRow, int originCol, int destRow, int destCol) throws GameException {
-        //Test if the selected cells are in the board
-        if (originRow > nbRows || originCol > nbCols || destRow > nbRows || destCol > nbCols ){
-            throw new GameException("Selected cell are out of the board");
+        Cell originCell = null;
+        Cell destCell = null;
+
+        if (isCoordinateInTheBoard(originRow, originCol) && isCoordinateInTheBoard(destRow, destCol)){
+            originCell = getCell(originRow, originCol);
+            destCell = getCell(destRow, destCol);
+        }else {
+            throw new GameException("Coordinate are out of the board");
+        }
+
+        //Check if the selected cell contains pawn
+        if (originCell.hasPawn() == true){
+
+        }else{
+            throw new GameException("Cell does not contains pawn");
         }
     }
 

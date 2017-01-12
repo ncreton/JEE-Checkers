@@ -68,7 +68,7 @@ public class BoardTest {
         for (int row = 0; row < 4; row++) {
             for (int col = 0; col < cells.get(row).size(); col++) {
                 Cell currentCell = cells.get(row).get(col);
-                if (currentCell.getCellColor() == Color.WHITE) {
+                if (currentCell.getCellColor() == Color.BLACK) {
                     assertThat(currentCell.getPawn()).isNotNull();
                     assertThat(currentCell.getPawn().getPawnColor()).isEqualTo(Color.BLACK);
                     totalPawns++;
