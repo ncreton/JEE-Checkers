@@ -46,10 +46,8 @@ public class GameCheckersImpl implements GameCheckers {
 
         //Check if the selected cell contains pawn
         if (originCell.hasPawn() && !destCell.hasPawn()){
-            Pawn currentPawn = originCell.getPawn();
-            if(isValidMovePawn(currentPawn, originRow, originCol, destRow, destCol) == true){
-                originCell.setPawn(null);
-                destCell.setPawn(currentPawn);
+            if(isValidMovePawn(originCell, destCell, originRow, originCol, destRow, destCol) == true){
+
             }
             else {
                 throw new GameException("Not a possible move");
@@ -59,16 +57,19 @@ public class GameCheckersImpl implements GameCheckers {
         }
     }
 
-    public boolean isValidMovePawn(Pawn pawn, int originRow, int originCol, int destRow, int destCol) {
-        if(pawn.getPawnColor() == Color.BLACK){
-            if(isSimpleMove(Color.BLACK,originRow, originCol, destRow, destCol)){
-                return true;
-            }
+    private boolean isValidMovePawn(Cell originCell, Cell destCell, int originRow, int originCol, int destRow, int destCol) {
+        Pawn currentPawn = originCell.getPawn();
+
+        if(isSimpleMove(currentPawn.getPawnColor(), originRow, originCol, destRow, destCol)){
+            originCell.setPawn(null);
+            destCell.setPawn(currentPawn);
+            return true;
         }
-        if(pawn.getPawnColor() == Color.WHITE){
-            if(isSimpleMove(Color.WHITE,originRow, originCol, destRow, destCol)){
-                return true;
-            }
+
+        if(isPawnTakenMove(currentPawn.getPawnColor(), originRow, originCol, destRow, destCol)) {
+            originCell.setPawn(null);
+            destCell.setPawn(currentPawn);
+            return true;
         }
         return false;
     }
@@ -77,14 +78,45 @@ public class GameCheckersImpl implements GameCheckers {
         if(color == Color.BLACK && destRow == originRow + 1 && destCol == originCol - 1  || destRow == originRow + 1 && destCol == originCol + 1){
             return true;
         }
-
         if(color == Color.WHITE && destRow == originRow - 1 && destCol == originCol - 1  || destRow == originRow - 1 && destCol == originCol + 1){
             return true;
         }
         return false;
     }
 
-    private boolean isTakePawnMove(){
+    private boolean isPawnTakenMove(Color color, int originRow, int originCol, int destRow, int destCol){
+        if(color == Color.BLACK && destRow == originRow + 2 && destCol == originCol - 2) {
+            Cell intermediateCell = board.getCell(originRow + 1,originCol - 1);
+            if(intermediateCell.getPawn().getPawnColor() == Color.WHITE) {
+                intermediateCell.setPawn(null);
+                return true;
+            }
+        }
+
+        if(color == Color.BLACK && destRow == originRow + 2 && destCol == originCol + 2) {
+            Cell intermediateCell = board.getCell(originRow + 1,originCol + 1);
+            if(intermediateCell.getPawn().getPawnColor() == Color.WHITE) {
+                intermediateCell.setPawn(null);
+                return true;
+            }
+        }
+
+        if(color == Color.WHITE && destRow == originRow - 2 && destCol == originCol - 2){
+            Cell intermediateCell = board.getCell(originRow - 1,originCol -1);
+            //Opponent pawn
+            if(intermediateCell.getPawn().getPawnColor() == Color.BLACK) {
+                intermediateCell.setPawn(null);
+                return true;
+            }
+        }
+
+        if(color == Color.WHITE && destRow == originRow - 2 && destCol == originCol + 2) {
+            Cell intermediateCell = board.getCell(originRow - 1,originCol + 1);
+            if(intermediateCell.getPawn().getPawnColor() == Color.BLACK) {
+                intermediateCell.setPawn(null);
+                return true;
+            }
+        }
         return false;
     }
 
