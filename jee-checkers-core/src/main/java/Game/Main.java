@@ -21,14 +21,32 @@ public class Main {
         //gameCheckers.movePawn(5,2,3,0);
         //System.out.println(gameCheckers.getBoard());
 
-        //Scenario to get a queen
+        //Scenario to get a queen (O -> Q)
         gameCheckers.movePawn(6,1,5,0);
         System.out.println(gameCheckers.getBoard());
 
         gameCheckers.movePawn(3,2,4,3);
         System.out.println(gameCheckers.getBoard());
 
+        gameCheckers.movePawn(5,0,4,1);
+        System.out.println(gameCheckers.getBoard());
 
+        gameCheckers.movePawn(2,3,3,2);
+        System.out.println(gameCheckers.getBoard());
 
+        gameCheckers.movePawn(4,1,2,3);
+        System.out.println(gameCheckers.getBoard());
+
+        gameCheckers.movePawn(2,1,3,2);
+        System.out.println(gameCheckers.getBoard());
+
+        gameCheckers.movePawn(1,0,2,1);
+        System.out.println(gameCheckers.getBoard());
+
+        gameCheckers.movePawn(0,1,1,0);
+        System.out.println(gameCheckers.getBoard());
+
+        gameCheckers.movePawn(2,3,0,1);
+        System.out.println(gameCheckers.getBoard());
     }
 }

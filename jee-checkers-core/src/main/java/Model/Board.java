@@ -102,7 +102,10 @@ public class Board {
 
             for(int col = 0; col < getNbCols(); col++){
                 boolean hasPawn = getCell(row, col).hasPawn();
-                if(hasPawn && getCell(row, col).getPawn().getPawnColor() == Color.BLACK) {
+                if(hasPawn && getCell(row, col).getPawn().getPawnType() == PawnType.QUEEN){
+                    sb.append("Q");
+                }
+                else if(hasPawn && getCell(row, col).getPawn().getPawnColor() == Color.BLACK) {
                     sb.append("X");
                 }
                 else if(hasPawn && getCell(row, col).getPawn().getPawnColor() == Color.WHITE) {
