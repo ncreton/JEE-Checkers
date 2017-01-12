@@ -55,6 +55,11 @@ public class GameCheckersImpl implements GameCheckers {
     }
 
     private boolean isValidMovePawn(Pawn currentPawn, Cell originCell, Cell destCell, int originRow, int originCol, int destRow, int destCol) {
+        if(isQueenMove(currentPawn, originRow, originCol, destRow, destCol)) {
+            originCell.setPawn(null);
+            destCell.setPawn(currentPawn);
+            return true;
+        }
 
         if(isSimpleMove(currentPawn.getPawnColor(), originRow, originCol, destRow, destCol)){
             originCell.setPawn(null);
@@ -67,6 +72,7 @@ public class GameCheckersImpl implements GameCheckers {
             destCell.setPawn(currentPawn);
             return true;
         }
+
         return false;
     }
 
@@ -116,6 +122,98 @@ public class GameCheckersImpl implements GameCheckers {
         return false;
     }
 
+    private boolean isQueenMove(Pawn pawn, int originRow, int originCol, int destRow, int destCol) {
+        if(pawn.getPawnType() == PawnType.QUEEN) {
+            //Down to Up in diagonal
+            if(destRow < originRow && destCol > originCol || destRow > originRow && destCol < originCol){
+                if(isOtherTeamPawns(pawn, originRow, destRow, originCol, QueenDirection.RIGHT_DIAGONAL)){
+                    //Remove opponents pawns
+                    removeRangePawns(originRow, destRow, originCol, QueenDirection.RIGHT_DIAGONAL);
+                    return true;
+                }
+            }
+
+            if(destRow < originRow && destCol < originCol || destRow > originRow && destCol > originCol){
+                if(isOtherTeamPawns(pawn, originRow, destRow, originCol, QueenDirection.LEFT_DIAGONAL)){
+                    //Remove opponents pawns
+                    removeRangePawns(originRow, destRow, originCol, QueenDirection.LEFT_DIAGONAL);
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    private boolean isOtherTeamPawns(Pawn pawn, int originRow,int destRow, int originCol, QueenDirection queenDirection){
+        //Up diagonal right
+        if(queenDirection == QueenDirection.RIGHT_DIAGONAL && destRow < originRow){
+            for(int row = originRow - 1; row <= destRow; row--){
+                if(board.getCell(row, originCol - 1).hasPawn() && board.getCell(row, originCol + 1).getPawn().getPawnColor() == pawn.getPawnColor()) {
+                    return false;
+                }
+            }
+        }
+        //Down diagonal right
+        if(queenDirection == QueenDirection.RIGHT_DIAGONAL && destRow > originRow) {
+            for(int row = originRow + 1; row <= destRow; row++){
+                if(board.getCell(row, originCol - 1).hasPawn() && board.getCell(row, originCol - 1).getPawn().getPawnColor() == pawn.getPawnColor()) {
+                    return false;
+                }
+            }
+        }
+        //Up diagonal left
+        if(queenDirection == QueenDirection.LEFT_DIAGONAL && destRow < originRow){
+            for(int row = originRow - 1; row <= destRow; row--){
+                if(board.getCell(row, originCol - 1).hasPawn() && board.getCell(row, originCol - 1).getPawn().getPawnColor() == pawn.getPawnColor()) {
+                    return false;
+                }
+            }
+        }
+        //Down diagonal left
+        if(queenDirection == QueenDirection.LEFT_DIAGONAL && destRow > originRow) {
+            for(int row = originRow + 1; row <= destRow; row++){
+                if(board.getCell(row, originCol + 1).hasPawn() && board.getCell(row, originCol + 1).getPawn().getPawnColor() == pawn.getPawnColor()) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    private void removeRangePawns(int originRow, int destRow, int originCol, QueenDirection queenDirection){
+        if(queenDirection == QueenDirection.RIGHT_DIAGONAL && destRow < originRow){
+            for(int row = originRow - 1; row <= destRow; row--){
+                if(board.getCell(row, originCol +1).hasPawn()){
+                    board.getCell(row, originCol + 1).setPawn(null);
+                }
+            }
+        }
+        //Down diagonal right
+        if(queenDirection == QueenDirection.RIGHT_DIAGONAL && destRow > originRow) {
+            for(int row = originRow + 1; row <= destRow; row++) {
+                if (board.getCell(row, originCol - 1).hasPawn()) {
+                    board.getCell(row, originCol - 1).setPawn(null);
+                }
+            }
+        }
+        //Up diagonal left
+        if(queenDirection == QueenDirection.LEFT_DIAGONAL && destRow < originRow){
+            for(int row = originRow - 1; row <= destRow; row--){
+                if(board.getCell(row, originCol -1).hasPawn()){
+                    board.getCell(row, originCol - 1).setPawn(null);
+                }
+            }
+        }
+        //Down diagonal left
+        if(queenDirection == QueenDirection.LEFT_DIAGONAL && destRow > originRow) {
+            for(int row = originRow + 1; row <= destRow; row++){
+                if(board.getCell(row, originCol +1).hasPawn()){
+                    board.getCell(row, originCol + 1).setPawn(null);
+                }
+            }
+        }
+
+    }
 
     private void pawnToQueen(int row, int col){
         if(row == 0 || row == board.getNbRows() - 1){

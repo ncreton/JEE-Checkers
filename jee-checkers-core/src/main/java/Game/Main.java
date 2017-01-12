@@ -48,5 +48,14 @@ public class Main {
 
         gameCheckers.movePawn(2,3,0,1);
         System.out.println(gameCheckers.getBoard());
+
+        //Queen Move
+        //Good move
+        gameCheckers.movePawn(0,1,5,6);
+        System.out.println(gameCheckers.getBoard());
+
+        //Bad move (TODO: Exception for moves)
+        //gameCheckers.movePawn(0,1,6,7);
+        //System.out.println(gameCheckers.getBoard());
     }
 }
