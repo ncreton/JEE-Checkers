@@ -1,9 +1,6 @@
 package Game;
 
-import Model.Board;
-import Model.Cell;
-import Model.Color;
-import Model.Pawn;
+import Model.*;
 import Exception.*;
 
 import java.util.List;
@@ -46,19 +43,18 @@ public class GameCheckersImpl implements GameCheckers {
 
         //Check if the selected cell contains pawn and try to move
         if (originCell.hasPawn()){
-            if(!destCell.hasPawn() && !isValidMovePawn(originCell, destCell, originRow, originCol, destRow, destCol)){
+            Pawn currentPawn = originCell.getPawn();
+            if(!destCell.hasPawn() && !isValidMovePawn(currentPawn, originCell, destCell, originRow, originCol, destRow, destCol)){
                 throw new GameException("Not a valid move");
             }
+            pawnToQueen(destRow, destCol);
         }
         else{
             throw new GameException("Cell does not contains pawn");
         }
-
-        //Check if we have to transform a pawn in queen
     }
 
-    private boolean isValidMovePawn(Cell originCell, Cell destCell, int originRow, int originCol, int destRow, int destCol) {
-        Pawn currentPawn = originCell.getPawn();
+    private boolean isValidMovePawn(Pawn currentPawn, Cell originCell, Cell destCell, int originRow, int originCol, int destRow, int destCol) {
 
         if(isSimpleMove(currentPawn.getPawnColor(), originRow, originCol, destRow, destCol)){
             originCell.setPawn(null);
@@ -120,13 +116,12 @@ public class GameCheckersImpl implements GameCheckers {
         return false;
     }
 
-    private boolean isQueenPosition(Cell cell) {
-        if(cell.getRowIndex() == 0 || cell.getRowIndex() == getBoard().getNbRows() -1){
-            return true;
-        }
-        return false;
-    }
 
+    private void pawnToQueen(int row, int col){
+        if(row == 0 || row == board.getNbRows() - 1){
+            board.getCell(row, col).getPawn().setPawnType(PawnType.QUEEN);
+        }
+    }
 
 
 }
