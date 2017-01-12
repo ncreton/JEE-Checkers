@@ -15,7 +15,7 @@ public class Board {
 
     public Board() {
         //Default board if no size and pawns are given
-        new Board(10, 10);
+        this(10, 10);
     }
 
     public Board(int nbRows, int nbCols) {
@@ -91,5 +91,30 @@ public class Board {
 
     public int getNbCols() {
         return nbCols;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+
+        for(int row = 0; row < getNbRows(); row++){
+            sb.append("|");
+
+            for(int col = 0; col < getNbCols(); col++){
+                boolean hasPawn = getCell(row, col).hasPawn();
+                if(hasPawn && getCell(row, col).getPawn().getPawnColor() == Color.BLACK) {
+                    sb.append("X");
+                }
+                else if(hasPawn && getCell(row, col).getPawn().getPawnColor() == Color.WHITE) {
+                    sb.append("O");
+                }
+                else{
+                    sb.append(" ");
+                }
+                sb.append("|");
+            }
+            sb.append("\n");
+        }
+        return sb.toString();
     }
 }

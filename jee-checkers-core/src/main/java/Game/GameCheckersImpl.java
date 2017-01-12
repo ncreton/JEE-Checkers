@@ -5,6 +5,7 @@ import Model.Cell;
 import Model.Color;
 import Model.Pawn;
 import Exception.*;
+import com.sun.tools.doclets.formats.html.SourceToHTMLConverter;
 
 import java.util.List;
 
@@ -17,6 +18,7 @@ public class GameCheckersImpl implements GameCheckers {
 
     public GameCheckersImpl() {
         this.board = new Board();
+        System.out.println(this.board);
     }
 
     public GameCheckersImpl(int rows, int columns) {
@@ -59,25 +61,5 @@ public class GameCheckersImpl implements GameCheckers {
     }
 
 
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
 
-        for(int row = getBoard().getNbRows() - 1; row >=0; row--){
-            sb.append("|");
-            for(int col = 0; col < getBoard().getNbCols(); col++){
-                if(getBoard().getCell(row, col).getPawn().getPawnColor() == Color.BLACK) {
-                    sb.append("X");
-                }
-                else if(getBoard().getCell(row, col).getPawn().getPawnColor() == Color.WHITE) {
-                    sb.append("O");
-                }
-                else{
-                    sb.append(" ");
-                }
-            }
-            sb.append("\n");
-        }
-        return sb.toString();
-    }
 }
