@@ -32,7 +32,7 @@ public class GameCheckersImpl implements GameCheckers {
 
     }
 
-    public void movePawn(Board board, int originRow, int originCol, int destRow, int destCol) throws GameException {
+    public void movePawn(int originRow, int originCol, int destRow, int destCol) throws GameException {
         Cell originCell = null;
         Cell destCell = null;
 
@@ -44,17 +44,17 @@ public class GameCheckersImpl implements GameCheckers {
             throw new GameException("Coordinate are out of the board");
         }
 
-        //Check if the selected cell contains pawn
-        if (originCell.hasPawn() && !destCell.hasPawn()){
-            if(isValidMovePawn(originCell, destCell, originRow, originCol, destRow, destCol) == true){
-
+        //Check if the selected cell contains pawn and try to move
+        if (originCell.hasPawn()){
+            if(!destCell.hasPawn() && !isValidMovePawn(originCell, destCell, originRow, originCol, destRow, destCol)){
+                throw new GameException("Not a valid move");
             }
-            else {
-                throw new GameException("Not a possible move");
-            }
-        }else{
+        }
+        else{
             throw new GameException("Cell does not contains pawn");
         }
+
+        //Check if we have to transform a pawn in queen
     }
 
     private boolean isValidMovePawn(Cell originCell, Cell destCell, int originRow, int originCol, int destRow, int destCol) {

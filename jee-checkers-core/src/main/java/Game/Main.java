@@ -12,13 +12,13 @@ public class Main {
         System.out.println(gameCheckers.getBoard());
 
         //Simple moves
-        gameCheckers.movePawn(gameCheckers.getBoard(),3,0,4,1);
-        gameCheckers.movePawn(gameCheckers.getBoard(),6,1,5,2);
+        gameCheckers.movePawn(3,0,4,1);
+        gameCheckers.movePawn(6,1,5,2);
         System.out.println(gameCheckers.getBoard());
 
         //Take a pawn
-        gameCheckers.movePawn(gameCheckers.getBoard(),3,2,5,0);
-        //gameCheckers.movePawn(gameCheckers.getBoard(),5,2,3,0);
+        //IMPOSSIBLE gameCheckers.movePawn(gameCheckers.getBoard(),3,2,5,0);
+        gameCheckers.movePawn(5,2,3,0);
         System.out.println(gameCheckers.getBoard());
 
     }
