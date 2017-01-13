@@ -17,7 +17,7 @@ public abstract class Move {
     public abstract void move(Cell originCell, Cell destCell) throws GameException;
 
     /**
-     * Chacks if the move is a simple move i.e. only up or down in a square (+- 1) perimeter
+     * Checks if the move is a simple move i.e. only up or down in a square (+- 1) perimeter
      *
      * @param originCell
      * @param destCell
@@ -31,10 +31,10 @@ public abstract class Move {
         int destCol = destCell.getColIndex();
         Color color = originCell.getPawn().getPawnColor();
 
-        if (color == Color.BLACK && destRow == originRow + 1 && destCol == originCol - 1 || destRow == originRow + 1 && destCol == originCol + 1) {
+        if (color == Color.BLACK && destRow == originRow + 1 && Math.abs(destCol - originCol) == 1) {
             return true;
         }
-        return color == Color.WHITE && destRow == originRow - 1 && destCol == originCol - 1 || destRow == originRow - 1 && destCol == originCol + 1;
+        return color == Color.WHITE && destRow == originRow - 1 && Math.abs(destCol - originCol) == 1;
     }
 
     /**
@@ -51,36 +51,39 @@ public abstract class Move {
         int destCol = destCell.getColIndex();
         Color color = originCell.getPawn().getPawnColor();
 
-        if (color == Color.BLACK && destRow == originRow + 2 && destCol == originCol - 2) {
-            Cell intermediateCell = board.getCell(originRow + 1, originCol - 1);
-            if (intermediateCell.getPawn().getPawnColor() == Color.WHITE) {
-                intermediateCell.setPawn(null);
+        if (color == Color.BLACK) {
+            if (destRow == originRow + 2 && destCol == originCol - 2) {
+                Cell intermediateCell = board.getCell(originRow + 1, originCol - 1);
+                if (intermediateCell.getPawn().getPawnColor() == Color.WHITE) {
+                    intermediateCell.deletePawn();
+                }
+            }
+
+            if (destRow == originRow + 2 && destCol == originCol + 2) {
+                Cell intermediateCell = board.getCell(originRow + 1, originCol + 1);
+                if (intermediateCell.getPawn().getPawnColor() == Color.WHITE) {
+                    intermediateCell.deletePawn();
+                }
             }
         }
 
-        if (color == Color.BLACK && destRow == originRow + 2 && destCol == originCol + 2) {
-            Cell intermediateCell = board.getCell(originRow + 1, originCol + 1);
-            if (intermediateCell.getPawn().getPawnColor() == Color.WHITE) {
-                intermediateCell.setPawn(null);
+        if (color == Color.WHITE) {
+            if (destRow == originRow - 2 && destCol == originCol - 2) {
+                Cell intermediateCell = board.getCell(originRow - 1, originCol - 1);
+                //Opponent pawn
+                if (intermediateCell.getPawn().getPawnColor() == Color.BLACK) {
+                    intermediateCell.deletePawn();
+                }
             }
-        }
 
-        if (color == Color.WHITE && destRow == originRow - 2 && destCol == originCol - 2) {
-            Cell intermediateCell = board.getCell(originRow - 1, originCol - 1);
-            //Opponent pawn
-            if (intermediateCell.getPawn().getPawnColor() == Color.BLACK) {
-                intermediateCell.setPawn(null);
-            }
-        }
-
-        if (color == Color.WHITE && destRow == originRow - 2 && destCol == originCol + 2) {
-            Cell intermediateCell = board.getCell(originRow - 1, originCol + 1);
-            if (intermediateCell.getPawn().getPawnColor() == Color.BLACK) {
-                intermediateCell.setPawn(null);
+            if (destRow == originRow - 2 && destCol == originCol + 2) {
+                Cell intermediateCell = board.getCell(originRow - 1, originCol + 1);
+                if (intermediateCell.getPawn().getPawnColor() == Color.BLACK) {
+                    intermediateCell.deletePawn();
+                }
             }
         }
     }
-
 
     /**
      * Check if the move is only in diagonal
