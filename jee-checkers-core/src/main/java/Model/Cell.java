@@ -28,10 +28,6 @@ public class Cell {
         return cellColor;
     }
 
-    public void setCellColor(Color color) {
-        this.cellColor = color;
-    }
-
     public Pawn getPawn() {
         return pawn;
     }
@@ -44,21 +40,15 @@ public class Cell {
         return rowIndex;
     }
 
-    public void setRowIndex(int rowIndex) {
-        this.rowIndex = rowIndex;
-    }
-
     public int getColIndex() {
         return colIndex;
     }
 
-    public void setColIndex(int colIndex) {
-        this.colIndex = colIndex;
+    public boolean hasPawn(){
+        return this.pawn != null;
     }
 
-    public boolean hasPawn(){
-        if (this.pawn != null){
-            return true;
-        }else return false;
+    public void deletePawn() {
+        this.setPawn(null);
     }
 }

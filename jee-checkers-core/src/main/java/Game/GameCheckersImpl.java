@@ -55,12 +55,11 @@ public class GameCheckersImpl implements GameCheckers {
         if (originCell.hasPawn() && !destCell.hasPawn()) {
             if (originCell.getPawn().getPawnType() == PawnType.NORMAL) {
                 Move normalMove = new NormalMove(board);
-                this.board = normalMove.move(originCell, destCell);
+                normalMove.move(originCell, destCell);
             } else if (originCell.getPawn().getPawnType() == PawnType.QUEEN) {
                 Move queenMove = new QueenMove(board);
-                this.board = queenMove.move(originCell, destCell);
+                queenMove.move(originCell, destCell);
             }
-            //TODO Throw game exception "Not a valid Move"
         } else {
             throw new GameException("Cell does not contains pawn");
         }

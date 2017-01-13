@@ -15,7 +15,7 @@ public class QueenMove extends Move {
     }
 
     //NOT FINISHED (finish isDiagonalMove)!! (Because you can't no only move in diagonal and we have to)
-    public Board move(Cell originCell, Cell destCell) throws GameException {
+    public void move(Cell originCell, Cell destCell) throws GameException {
 
         int originRow = originCell.getRowIndex();
         int originCol = originCell.getColIndex();
@@ -28,19 +28,15 @@ public class QueenMove extends Move {
                 //Remove opponents pawns
                 removeRangePawns(originCell, destCell, QueenDirection.RIGHT_DIAGONAL);
                 board.swapPawn(originCell, destCell);
-                return board;
             }
-        }
-
-        if (destRow < originRow && destCol < originCol || destRow > originRow && destCol > originCol) {
+        } else if (destRow < originRow && destCol < originCol || destRow > originRow && destCol > originCol) {
             if (isOtherTeamPawns(originCell, destCell, QueenDirection.LEFT_DIAGONAL)) {
                 //Remove opponents pawns
                 removeRangePawns(originCell, destCell, QueenDirection.LEFT_DIAGONAL);
                 board.swapPawn(originCell, destCell);
-                return board;
             }
+        } else {
+            throw new GameException("Problem moving the queen");
         }
-
-        throw new GameException("Problem moving the queen");
     }
 }

@@ -14,7 +14,7 @@ public abstract class Move {
         this.board = board;
     }
 
-    public abstract Board move(Cell originCell, Cell destCell) throws GameException;
+    public abstract void move(Cell originCell, Cell destCell) throws GameException;
 
     /**
      * Chacks if the move is a simple move i.e. only up or down in a square (+- 1) perimeter
@@ -166,7 +166,7 @@ public abstract class Move {
             for (int row = originRow - 1; row <= destRow; row--) {
                 col = col + 1;
                 if (board.getCell(row, col).hasPawn()) {
-                    board.getCell(row, col).setPawn(null);
+                    board.getCell(row, col).deletePawn();
                 }
             }
         }
@@ -175,7 +175,7 @@ public abstract class Move {
             for (int row = originRow + 1; row <= destRow; row++) {
                 col = col - 1;
                 if (board.getCell(row, col).hasPawn()) {
-                    board.getCell(row, col).setPawn(null);
+                    board.getCell(row, col).deletePawn();
                 }
             }
         }
@@ -184,7 +184,7 @@ public abstract class Move {
             for (int row = originRow - 1; row <= destRow; row--) {
                 col = col - 1;
                 if (board.getCell(row, col).hasPawn()) {
-                    board.getCell(row, col).setPawn(null);
+                    board.getCell(row, col).deletePawn();
                 }
             }
         }
@@ -193,7 +193,7 @@ public abstract class Move {
             for (int row = originRow + 1; row <= destRow; row++) {
                 col = col + 1;
                 if (board.getCell(row, col).hasPawn()) {
-                    board.getCell(row, col).setPawn(null);
+                    board.getCell(row, col).deletePawn();
                 }
             }
         }
