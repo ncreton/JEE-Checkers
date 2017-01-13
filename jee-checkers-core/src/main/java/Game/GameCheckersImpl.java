@@ -15,6 +15,7 @@ public class GameCheckersImpl implements GameCheckers {
     private Board board;
     private Player playerWhite;
     private Player playerBlack;
+    private Player currentPlayer;
 
     public GameCheckersImpl() {
         this(10, 10, "Player 1", "Player 2");
@@ -26,6 +27,7 @@ public class GameCheckersImpl implements GameCheckers {
             int nbPawnsPerPlayer = board.computeNbPawnsPerPlayer();
             this.playerWhite = new Player(playerName1, Color.WHITE, nbPawnsPerPlayer);
             this.playerBlack = new Player(playerName2, Color.BLACK, nbPawnsPerPlayer);
+            this.currentPlayer = playerWhite;
         } catch (GameException g) {
 
         }
@@ -36,8 +38,9 @@ public class GameCheckersImpl implements GameCheckers {
     }
 
     @Override
-    public void play(Player player, int originRow, int originCol, int destRow, int destCol) {
-
+    public void play(int originRow, int originCol, int destRow, int destCol) throws GameException {
+        switchPlayer();
+        movePawn(originRow, originCol, destRow, destCol);
     }
 
     /**
@@ -73,5 +76,9 @@ public class GameCheckersImpl implements GameCheckers {
         } else {
             throw new GameException("Cell does not contains pawn");
         }
+    }
+
+    private void switchPlayer() {
+        this.currentPlayer = (this.currentPlayer == this.playerWhite) ? this.playerBlack : this.playerWhite;
     }
 }

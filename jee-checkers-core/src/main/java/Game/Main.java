@@ -22,36 +22,36 @@ public class Main {
         //System.out.println(gameCheckers.getBoard());
 
         //Scenario to get a queen (O -> Q)
-        gameCheckers.movePawn(6,1,5,0);
+        gameCheckers.play(6, 1, 5, 0);
         System.out.println(gameCheckers.getBoard());
 
-        gameCheckers.movePawn(3,2,4,3);
+        gameCheckers.play(3, 2, 4, 3);
         System.out.println(gameCheckers.getBoard());
 
-        gameCheckers.movePawn(5,0,4,1);
+        gameCheckers.play(5, 0, 4, 1);
         System.out.println(gameCheckers.getBoard());
 
-        gameCheckers.movePawn(2,3,3,2);
+        gameCheckers.play(2, 3, 3, 2);
         System.out.println(gameCheckers.getBoard());
 
-        gameCheckers.movePawn(4,1,2,3);
+        gameCheckers.play(4, 1, 2, 3);
         System.out.println(gameCheckers.getBoard());
 
-        gameCheckers.movePawn(2,1,3,2);
+        gameCheckers.play(2, 1, 3, 2);
         System.out.println(gameCheckers.getBoard());
 
-        gameCheckers.movePawn(1,0,2,1);
+        gameCheckers.play(1, 0, 2, 1);
         System.out.println(gameCheckers.getBoard());
 
-        gameCheckers.movePawn(0,1,1,0);
+        gameCheckers.play(0, 1, 1, 0);
         System.out.println(gameCheckers.getBoard());
 
-        gameCheckers.movePawn(2,3,0,1);
+        gameCheckers.play(2, 3, 0, 1);
         System.out.println(gameCheckers.getBoard());
 
         //Queen Move
         //Good move
-        gameCheckers.movePawn(0,1,5,6);
+        gameCheckers.play(0, 1, 5, 6);
         System.out.println(gameCheckers.getBoard());
 
         //Bad move (TODO: Exception for moves)

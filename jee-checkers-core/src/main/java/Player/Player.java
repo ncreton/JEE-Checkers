@@ -29,10 +29,6 @@ public class Player {
     }
 
     public void winPoint() {
-        nbPawns++;
-    }
-
-    public void loosePoint() {
         nbPawns--;
     }
 }
