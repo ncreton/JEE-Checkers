@@ -54,6 +54,7 @@ public class GameCheckersImpl implements GameCheckers {
         }
     }
 
+    //Determine if the move for the specific given pawn is correct (normal pawn/queen, destination cell and direction)
     private boolean isValidMovePawn(Pawn currentPawn, Cell originCell, Cell destCell, int originRow, int originCol, int destRow, int destCol) {
         if(isQueenMove(currentPawn, originRow, originCol, destRow, destCol)) {
             originCell.setPawn(null);
@@ -72,7 +73,6 @@ public class GameCheckersImpl implements GameCheckers {
             destCell.setPawn(currentPawn);
             return true;
         }
-
         return false;
     }
 
@@ -122,6 +122,8 @@ public class GameCheckersImpl implements GameCheckers {
         return false;
     }
 
+    //NOT FINISH !! (Because you can't no only move in diagonal and we have to)
+    // Check if it's a queen move
     private boolean isQueenMove(Pawn pawn, int originRow, int originCol, int destRow, int destCol) {
         if(pawn.getPawnType() == PawnType.QUEEN) {
             //Down to Up in diagonal
@@ -144,6 +146,7 @@ public class GameCheckersImpl implements GameCheckers {
         return false;
     }
 
+    //Check if the pawns in the queen's direction are opponent pawns or in my team
     private boolean isOtherTeamPawns(Pawn pawn, int originRow,int destRow, int originCol, QueenDirection queenDirection){
         //Up diagonal right
         if(queenDirection == QueenDirection.RIGHT_DIAGONAL && destRow < originRow){
@@ -180,41 +183,49 @@ public class GameCheckersImpl implements GameCheckers {
         return true;
     }
 
+    //Remove pawns between origin and queen destination so on diagonal(if only opponents pawns)
     private void removeRangePawns(int originRow, int destRow, int originCol, QueenDirection queenDirection){
+        int col = originCol;
+        //Up diagonal right
         if(queenDirection == QueenDirection.RIGHT_DIAGONAL && destRow < originRow){
             for(int row = originRow - 1; row <= destRow; row--){
-                if(board.getCell(row, originCol +1).hasPawn()){
-                    board.getCell(row, originCol + 1).setPawn(null);
+                col = col +1;
+                if(board.getCell(row, col).hasPawn()){
+                    board.getCell(row, col).setPawn(null);
                 }
             }
         }
         //Down diagonal right
         if(queenDirection == QueenDirection.RIGHT_DIAGONAL && destRow > originRow) {
             for(int row = originRow + 1; row <= destRow; row++) {
-                if (board.getCell(row, originCol - 1).hasPawn()) {
-                    board.getCell(row, originCol - 1).setPawn(null);
+                col = col -1;
+                if (board.getCell(row, col).hasPawn()) {
+                    board.getCell(row, col).setPawn(null);
                 }
             }
         }
         //Up diagonal left
         if(queenDirection == QueenDirection.LEFT_DIAGONAL && destRow < originRow){
             for(int row = originRow - 1; row <= destRow; row--){
-                if(board.getCell(row, originCol -1).hasPawn()){
-                    board.getCell(row, originCol - 1).setPawn(null);
+                col = col -1;
+                if(board.getCell(row, col).hasPawn()){
+                    board.getCell(row, col).setPawn(null);
                 }
             }
         }
         //Down diagonal left
         if(queenDirection == QueenDirection.LEFT_DIAGONAL && destRow > originRow) {
             for(int row = originRow + 1; row <= destRow; row++){
-                if(board.getCell(row, originCol +1).hasPawn()){
-                    board.getCell(row, originCol + 1).setPawn(null);
+                col = col +1;
+                if(board.getCell(row, col).hasPawn()){
+                    board.getCell(row, col).setPawn(null);
                 }
             }
         }
 
     }
 
+    //Transform a pawn in queen
     private void pawnToQueen(int row, int col){
         if(row == 0 || row == board.getNbRows() - 1){
             board.getCell(row, col).getPawn().setPawnType(PawnType.QUEEN);
