@@ -16,26 +16,7 @@ public abstract class Move {
 
     public abstract void move(Cell originCell, Cell destCell) throws GameException;
 
-    /**
-     * Checks if the move is a simple move i.e. only up or down in a square (+- 1) perimeter
-     *
-     * @param originCell
-     * @param destCell
-     * @return bool
-     */
-    protected boolean isSimpleMove(Cell originCell, Cell destCell) {
-
-        int originRow = originCell.getRowIndex();
-        int originCol = originCell.getColIndex();
-        int destRow = destCell.getRowIndex();
-        int destCol = destCell.getColIndex();
-        Color color = originCell.getPawn().getPawnColor();
-
-        if (color == Color.BLACK && destRow == originRow + 1 && Math.abs(destCol - originCol) == 1) {
-            return true;
-        }
-        return color == Color.WHITE && destRow == originRow - 1 && Math.abs(destCol - originCol) == 1;
-    }
+    public abstract boolean isMoveAuthorized(Cell originCell, Cell destCell) throws GameException;
 
     /**
      * Checks if a pawn is taken during the move
@@ -83,20 +64,6 @@ public abstract class Move {
                 }
             }
         }
-    }
-
-    /**
-     * Check if the move is only in diagonal
-     *
-     * @param originRow
-     * @param originCol
-     * @param destRow
-     * @param destCol
-     * @return
-     */
-    protected boolean isDiagonalMove(int originRow, int originCol, int destRow, int destCol) {
-        //4 cases
-        return false;
     }
 
     /**
