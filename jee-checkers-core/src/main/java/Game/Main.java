@@ -6,7 +6,7 @@ package Game;
 public class Main {
 
     public static void main (String[] args) throws Exception {
-        GameCheckersImpl gameCheckers =  new GameCheckersImpl();
+        GameCheckersImpl gameCheckers = new GameCheckersImpl(10, 10, "Nicolas", "Baptiste");
 
         //Init game
         System.out.println(gameCheckers.getBoard());

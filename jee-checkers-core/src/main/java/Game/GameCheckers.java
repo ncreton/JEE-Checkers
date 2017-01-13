@@ -1,13 +1,11 @@
 package Game;
 
-import Model.Cell;
-import Model.Color;
-import Model.Pawn;
+import Player.Player;
 
 /**
  * Created by Nicolas on 10/01/2017.
  */
 public interface GameCheckers {
 
-    void play(Pawn pawn, int row, int column);
+    void play(Player player, int originRow, int originCol, int destRow, int destCol);
 }

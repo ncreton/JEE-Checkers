@@ -3,8 +3,9 @@ package Game;
 import Exception.GameException;
 import Model.Board;
 import Model.Cell;
-import Model.Pawn;
+import Model.Color;
 import Model.PawnType;
+import Player.Player;
 
 /**
  * Created by Nicolas on 10/01/2017.
@@ -12,13 +13,22 @@ import Model.PawnType;
 public class GameCheckersImpl implements GameCheckers {
 
     private Board board;
+    private Player playerWhite;
+    private Player playerBlack;
 
     public GameCheckersImpl() {
-        this.board = new Board();
+        this(10, 10, "Player 1", "Player 2");
     }
 
-    public GameCheckersImpl(int rows, int columns) {
-        this.board = new Board(rows, columns);
+    public GameCheckersImpl(int rows, int columns, String playerName1, String playerName2) {
+        try {
+            this.board = new Board(rows, columns);
+            int nbPawnsPerPlayer = board.computeNbPawnsPerPlayer();
+            this.playerWhite = new Player(playerName1, Color.WHITE, nbPawnsPerPlayer);
+            this.playerBlack = new Player(playerName2, Color.BLACK, nbPawnsPerPlayer);
+        } catch (GameException g) {
+
+        }
     }
 
     public Board getBoard() {
@@ -26,7 +36,7 @@ public class GameCheckersImpl implements GameCheckers {
     }
 
     @Override
-    public void play(Pawn pawn, int row, int col){
+    public void play(Player player, int originRow, int originCol, int destRow, int destCol) {
 
     }
 

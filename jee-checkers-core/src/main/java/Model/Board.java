@@ -1,5 +1,7 @@
 package Model;
 
+import Exception.GameException;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,16 +14,21 @@ public class Board {
     private int nbCols;
     private List<List<Cell>> cells;
 
-    public Board() {
-        //Default board if no size and pawns are given
+    public Board() throws GameException {
+        //Default board if no size and pawns are given (international board by default)
         this(10, 10);
     }
 
-    public Board(int nbRows, int nbCols) {
-        this.nbRows = nbRows;
-        this.nbCols = nbCols;
-        this.cells = initCells();
-        initPawns();
+    public Board(int nbRows, int nbCols) throws GameException {
+        if (nbRows == nbCols && nbRows % 2 == 0) {
+            this.nbRows = nbRows;
+            this.nbCols = nbCols;
+            this.cells = initCells();
+            initPawns();
+        } else {
+            throw new GameException("Board must be square and even size");
+        }
+
     }
 
     private List<List<Cell>> initCells() {
@@ -44,7 +51,7 @@ public class Board {
     }
 
     private void initWhitePawns() {
-        for (int row = nbRows - 1; row >= nbRows - 4; row--) {
+        for (int row = nbRows - 1; row >= nbRows - ((nbRows / 2) - 1); row--) {
             for (int col = 0; col < nbCols; col++) {
                 Cell currentCell = getCell(row, col);
                 if (currentCell.getCellColor() == Color.BLACK) {
@@ -55,7 +62,7 @@ public class Board {
     }
 
     private void initBlackPawns() {
-        for (int row = 0; row < 4; row++) {
+        for (int row = 0; row <= (nbRows / 2) - 2; row++) {
             for (int col = 0; col < nbCols; col++) {
                 Cell currentCell = getCell(row, col);
                 if (currentCell.getCellColor() == Color.BLACK) {
@@ -89,6 +96,10 @@ public class Board {
 
     public int getNbCols() {
         return nbCols;
+    }
+
+    public int computeNbPawnsPerPlayer() {
+        return ((nbRows * nbCols - 2 * nbCols) / 4);
     }
 
     @Override
