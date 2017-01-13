@@ -50,8 +50,8 @@ public class GameCheckersImpl implements GameCheckers {
 
         //Check if the selected cell contains pawn and try to move
         if (originCell.hasPawn()){
-            Pawn currentPawn = originCell.getPawn();
-            if(!destCell.hasPawn() && !isValidMovePawn(currentPawn, originCell, destCell, originRow, originCol, destRow, destCol)){
+
+            if (!destCell.hasPawn() && !isValidMovePawn(originCell, destCell)) {
                 throw new GameException("Not a valid move");
             }
             pawnToQueen(destRow, destCol);
@@ -63,31 +63,23 @@ public class GameCheckersImpl implements GameCheckers {
     /**
      * Determine if the move for the specific given pawn is correct (normal pawn/queen, destination cell and direction)
      *
-     * @param currentPawn
      * @param originCell
      * @param destCell
-     * @param originRow
-     * @param originCol
-     * @param destRow
-     * @param destCol
      * @return bool
      */
-    private boolean isValidMovePawn(Pawn currentPawn, Cell originCell, Cell destCell, int originRow, int originCol, int destRow, int destCol) {
-        if(isQueenMove(currentPawn, originRow, originCol, destRow, destCol)) {
-            originCell.setPawn(null);
-            destCell.setPawn(currentPawn);
+    private boolean isValidMovePawn(Cell originCell, Cell destCell) {
+        if (isQueenMove(originCell, destCell)) {
+            board.swapPawn(originCell, destCell);
             return true;
         }
 
-        if(isSimpleMove(currentPawn.getPawnColor(), originRow, originCol, destRow, destCol)){
-            originCell.setPawn(null);
-            destCell.setPawn(currentPawn);
+        if (isSimpleMove(originCell, destCell)) {
+            board.swapPawn(originCell, destCell);
             return true;
         }
 
-        if(isPawnTakenMove(currentPawn.getPawnColor(), originRow, originCol, destRow, destCol)) {
-            originCell.setPawn(null);
-            destCell.setPawn(currentPawn);
+        if (isPawnTakenMove(originCell, destCell)) {
+            board.swapPawn(originCell, destCell);
             return true;
         }
         return false;
@@ -95,14 +87,18 @@ public class GameCheckersImpl implements GameCheckers {
 
     /**
      * Chacks if the move is a simple move i.e. only up or down in a square (+- 1) perimeter
-     * @param color
-     * @param originRow
-     * @param originCol
-     * @param destRow
-     * @param destCol
+     * @param originCell
+     * @param destCell
      * @return bool
      */
-    private boolean isSimpleMove(Color color, int originRow, int originCol, int destRow, int destCol) {
+    private boolean isSimpleMove(Cell originCell, Cell destCell) {
+
+        int originRow = originCell.getRowIndex();
+        int originCol = originCell.getColIndex();
+        int destRow = destCell.getRowIndex();
+        int destCol = destCell.getColIndex();
+        Color color = originCell.getPawn().getPawnColor();
+
         if(color == Color.BLACK && destRow == originRow + 1 && destCol == originCol - 1  || destRow == originRow + 1 && destCol == originCol + 1){
             return true;
         }
@@ -111,14 +107,18 @@ public class GameCheckersImpl implements GameCheckers {
 
     /**
      * Checks if a pawn is taken during the move
-     * @param color
-     * @param originRow
-     * @param originCol
-     * @param destRow
-     * @param destCol
+     * @param originCell
+     * @param destCell
      * @return bool
      */
-    private boolean isPawnTakenMove(Color color, int originRow, int originCol, int destRow, int destCol){
+    private boolean isPawnTakenMove(Cell originCell, Cell destCell) {
+
+        int originRow = originCell.getRowIndex();
+        int originCol = originCell.getColIndex();
+        int destRow = destCell.getRowIndex();
+        int destCol = destCell.getColIndex();
+        Color color = originCell.getPawn().getPawnColor();
+
         if(color == Color.BLACK && destRow == originRow + 2 && destCol == originCol - 2) {
             Cell intermediateCell = board.getCell(originRow + 1,originCol - 1);
             if(intermediateCell.getPawn().getPawnColor() == Color.WHITE) {
@@ -158,28 +158,32 @@ public class GameCheckersImpl implements GameCheckers {
 
     /**
      * Checks if the move is made by a queen
-     * @param pawn
-     * @param originRow
-     * @param originCol
-     * @param destRow
-     * @param destCol
+     * @param originCell
+     * @param destCell
      * @return
      */
-    private boolean isQueenMove(Pawn pawn, int originRow, int originCol, int destRow, int destCol) {
+    private boolean isQueenMove(Cell originCell, Cell destCell) {
+
+        int originRow = originCell.getRowIndex();
+        int originCol = originCell.getColIndex();
+        int destRow = destCell.getRowIndex();
+        int destCol = destCell.getColIndex();
+        Pawn pawn = originCell.getPawn();
+
         if(pawn.getPawnType() == PawnType.QUEEN) {
             //Down to Up in diagonal
             if(destRow < originRow && destCol > originCol || destRow > originRow && destCol < originCol){
-                if(isOtherTeamPawns(pawn, originRow, destRow, originCol, QueenDirection.RIGHT_DIAGONAL)){
+                if (isOtherTeamPawns(originCell, destCell, QueenDirection.RIGHT_DIAGONAL)) {
                     //Remove opponents pawns
-                    removeRangePawns(originRow, destRow, originCol, QueenDirection.RIGHT_DIAGONAL);
+                    removeRangePawns(originCell, destCell, QueenDirection.RIGHT_DIAGONAL);
                     return true;
                 }
             }
 
             if(destRow < originRow && destCol < originCol || destRow > originRow && destCol > originCol){
-                if(isOtherTeamPawns(pawn, originRow, destRow, originCol, QueenDirection.LEFT_DIAGONAL)){
+                if (isOtherTeamPawns(originCell, destCell, QueenDirection.LEFT_DIAGONAL)) {
                     //Remove opponents pawns
-                    removeRangePawns(originRow, destRow, originCol, QueenDirection.LEFT_DIAGONAL);
+                    removeRangePawns(originCell, destCell, QueenDirection.LEFT_DIAGONAL);
                     return true;
                 }
             }
@@ -202,14 +206,19 @@ public class GameCheckersImpl implements GameCheckers {
 
     /**
      * Check if the pawns in the queen's direction are opponent pawns or in the same team
-     * @param pawn
-     * @param originRow
-     * @param destRow
-     * @param originCol
+     * @param originCell
+     * @param destCell
      * @param queenDirection
      * @return
      */
-    private boolean isOtherTeamPawns(Pawn pawn, int originRow,int destRow, int originCol, QueenDirection queenDirection){
+    private boolean isOtherTeamPawns(Cell originCell, Cell destCell, QueenDirection queenDirection) {
+
+        int originRow = originCell.getRowIndex();
+        int originCol = originCell.getColIndex();
+        int destRow = destCell.getRowIndex();
+        int destCol = destCell.getColIndex();
+        Pawn pawn = originCell.getPawn();
+
         //Up diagonal right
         if(queenDirection == QueenDirection.RIGHT_DIAGONAL && destRow < originRow){
             for(int row = originRow - 1; row <= destRow; row--){
@@ -247,13 +256,17 @@ public class GameCheckersImpl implements GameCheckers {
 
     /**
      * Remove pawns between origin and queen destination so on diagonal(if only opponents pawns)
-     * @param originRow
-     * @param destRow
-     * @param originCol
+     * @param originCell
+     * @param destCell
      * @param queenDirection
      */
-    private void removeRangePawns(int originRow, int destRow, int originCol, QueenDirection queenDirection){
+    private void removeRangePawns(Cell originCell, Cell destCell, QueenDirection queenDirection) {
+
+        int originRow = originCell.getRowIndex();
+        int originCol = originCell.getColIndex();
+        int destRow = destCell.getRowIndex();
         int col = originCol;
+
         //Up diagonal right
         if(queenDirection == QueenDirection.RIGHT_DIAGONAL && destRow < originRow){
             for(int row = originRow - 1; row <= destRow; row--){
@@ -290,7 +303,6 @@ public class GameCheckersImpl implements GameCheckers {
                 }
             }
         }
-
     }
 
     /**
@@ -303,6 +315,4 @@ public class GameCheckersImpl implements GameCheckers {
             board.getCell(row, col).getPawn().setPawnType(PawnType.QUEEN);
         }
     }
-
-
 }

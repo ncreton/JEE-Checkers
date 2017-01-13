@@ -2,7 +2,6 @@ package Model;
 
 import java.util.ArrayList;
 import java.util.List;
-import Exception.*;
 
 /**
  * Created by Nicolas on 09/01/2017.
@@ -70,19 +69,18 @@ public class Board {
         return cells;
     }
 
-    public void setCells(List<List<Cell>> cells) {
-        this.cells = cells;
-    }
-
     public Cell getCell(int row, int col){
         return this.cells.get(row).get(col);
     }
 
     public boolean isCoordinateInTheBoard(int row, int col){
-        if (row < nbRows || col < nbCols){
-            return true;
-        }
-        return false;
+        return row < nbRows || col < nbCols;
+    }
+
+    public void swapPawn(Cell originCell, Cell destCell) {
+        Pawn currentPawn = originCell.getPawn();
+        originCell.setPawn(null);
+        destCell.setPawn(currentPawn);
     }
 
     public int getNbRows() {
