@@ -122,7 +122,7 @@ public class GameCheckersImpl implements GameCheckers {
         return false;
     }
 
-    //NOT FINISH !! (Because you can't no only move in diagonal and we have to)
+    //NOT FINISH (finish isDiagonalMove)!! (Because you can't no only move in diagonal and we have to)
     // Check if it's a queen move
     private boolean isQueenMove(Pawn pawn, int originRow, int originCol, int destRow, int destCol) {
         if(pawn.getPawnType() == PawnType.QUEEN) {
@@ -143,6 +143,12 @@ public class GameCheckersImpl implements GameCheckers {
                 }
             }
         }
+        return false;
+    }
+
+    //Check if the move is only in diagonal
+    private boolean isDiagonalMove(int originRow, int originCol, int destRow, int destCol){
+        //4 cases
         return false;
     }
 
