@@ -17,11 +17,7 @@ public class Cell {
     }
 
     private Color computeColorCell(int row, int col) {
-        if ((row % 2 == 0 && col % 2 == 0) || (row % 2 != 0 && col % 2 != 0)) {
-            return Color.WHITE;
-        } else {
-            return Color.BLACK;
-        }
+        return (row % 2 == 0 && col % 2 == 0) || (row % 2 != 0 && col % 2 != 0) ? Color.WHITE : Color.BLACK;
     }
 
     public Color getCellColor() {

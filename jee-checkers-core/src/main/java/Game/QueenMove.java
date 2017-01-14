@@ -16,18 +16,6 @@ public class QueenMove extends Move {
         super(board);
     }
 
-    public QueenDirection getDiagonalDirection(int originRow, int originCol, int destRow, int destCol) {
-        QueenDirection queenDirection = null;
-
-        if (destRow < originRow && destCol > originCol || destRow > originRow && destCol < originCol)
-            queenDirection = QueenDirection.RIGHT_DIAGONAL;
-
-        if(destRow < originRow && destCol < originCol || destRow > originRow && destCol > originCol) {
-            queenDirection = QueenDirection.LEFT_DIAGONAL;
-        }
-        return queenDirection;
-    }
-
     /**
      * Method to move the queen
      *
@@ -70,8 +58,29 @@ public class QueenMove extends Move {
 
         if(abs(destRow - originRow) == abs(destCol - originCol)){
             return true;
+        } else {
+            throw new GameException("Movement not authorized");
         }
-        System.out.println("Not possible");
-        return false;
+    }
+
+    /**
+     * Function to compute the diagonal direction of the queen
+     *
+     * @param originRow
+     * @param originCol
+     * @param destRow
+     * @param destCol
+     * @return
+     */
+    private QueenDirection getDiagonalDirection(int originRow, int originCol, int destRow, int destCol) {
+        QueenDirection queenDirection = null;
+
+        if (destRow < originRow && destCol > originCol || destRow > originRow && destCol < originCol)
+            queenDirection = QueenDirection.RIGHT_DIAGONAL;
+
+        if (destRow < originRow && destCol < originCol || destRow > originRow && destCol > originCol) {
+            queenDirection = QueenDirection.LEFT_DIAGONAL;
+        }
+        return queenDirection;
     }
 }
