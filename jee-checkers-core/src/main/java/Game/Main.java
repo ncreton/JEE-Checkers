@@ -51,11 +51,11 @@ public class Main {
 
         //Queen Move
         //Good move
-        gameCheckers.play(0, 1, 5, 6);
-        System.out.println(gameCheckers.getBoard());
+//        gameCheckers.play(0, 1, 5, 6);
+//        System.out.println(gameCheckers.getBoard());
 
         //Bad move (TODO: Exception for moves)
-        //gameCheckers.movePawn(0,1,6,7);
-        //System.out.println(gameCheckers.getBoard());
+        gameCheckers.movePawn(0,1,1,1);
+        System.out.println(gameCheckers.getBoard());
     }
 }
