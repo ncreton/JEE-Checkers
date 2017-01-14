@@ -25,11 +25,17 @@ public class BoardTest {
     }
 
     @Test
-    public void boardInstanciationTest() throws Exception {
+    /**
+     * Test the instantiation of the board
+     */
+    public void boardInstantiationTest() throws Exception {
         assertThat(board).isNotNull();
     }
 
     @Test
+    /**
+     * The the size of the created board
+     */
     public void boardSizeTest() throws Exception {
         assertThat(board.getCells()).isNotNull();
         assertThat(board.getCells().size()).isEqualTo(nbRows);
@@ -39,6 +45,9 @@ public class BoardTest {
     }
 
     @Test
+    /**
+     * Test the cells color to check if they are well placed
+     */
     public void boardColorTest() throws Exception {
         List<List<Cell>> cells = board.getCells();
         for (int row = 0; row < cells.size(); row++) {
@@ -61,13 +70,15 @@ public class BoardTest {
     }
 
     @Test
+    /**
+     * Test the initial position on the board and their numbers
+     */
     public void pawnInitialPositionTest() throws Exception {
-        List<List<Cell>> cells = board.getCells();
         int totalPawns = 0;
         //Black pawns
-        for (int row = 0; row < 4; row++) {
-            for (int col = 0; col < cells.get(row).size(); col++) {
-                Cell currentCell = cells.get(row).get(col);
+        for (int row = 0; row <= (nbRows / 2) - 2; row++) {
+            for (int col = 0; col < nbCols; col++) {
+                Cell currentCell = board.getCell(row, col);
                 if (currentCell.getCellColor() == Color.BLACK) {
                     assertThat(currentCell.getPawn()).isNotNull();
                     assertThat(currentCell.getPawn().getPawnColor()).isEqualTo(Color.BLACK);
@@ -78,9 +89,9 @@ public class BoardTest {
             }
         }
         //White Pawns
-        for (int row = cells.size() - 1; row < cells.size() - 4; row++) {
-            for (int col = 0; col < cells.get(row).size(); col++) {
-                Cell currentCell = cells.get(row).get(col);
+        for (int row = nbRows - 1; row >= nbRows - ((nbRows / 2) - 1); row--) {
+            for (int col = 0; col < nbCols; col++) {
+                Cell currentCell = board.getCell(row, col);
                 if (currentCell.getCellColor() == Color.BLACK) {
                     assertThat(currentCell.getPawn()).isNotNull();
                     assertThat(currentCell.getPawn().getPawnColor()).isEqualTo(Color.WHITE);
@@ -90,6 +101,6 @@ public class BoardTest {
                 }
             }
         }
-        assertThat(totalPawns).isEqualTo(nbPawnsPlayer);
+        assertThat(totalPawns).isEqualTo(nbPawnsPlayer * 2);
     }
 }
