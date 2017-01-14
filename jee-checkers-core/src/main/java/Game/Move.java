@@ -79,13 +79,14 @@ public abstract class Move {
         int originRow = originCell.getRowIndex();
         int originCol = originCell.getColIndex();
         int destRow = destCell.getRowIndex();
-        int destCol = destCell.getColIndex();
         Pawn pawn = originCell.getPawn();
+        int col = originCol;
 
         //Up diagonal right
         if (queenDirection == QueenDirection.RIGHT_DIAGONAL && destRow < originRow) {
             for (int row = originRow - 1; row <= destRow; row--) {
-                if (board.getCell(row, originCol - 1).hasPawn() && board.getCell(row, originCol + 1).getPawn().getPawnColor() == pawn.getPawnColor()) {
+                col = col + 1;
+                if (board.getCell(row, col).hasPawn() && board.getCell(row, col).getPawn().getPawnColor() == pawn.getPawnColor()) {
                     return false;
                 }
             }
@@ -93,7 +94,8 @@ public abstract class Move {
         //Down diagonal right
         if (queenDirection == QueenDirection.RIGHT_DIAGONAL && destRow > originRow) {
             for (int row = originRow + 1; row <= destRow; row++) {
-                if (board.getCell(row, originCol - 1).hasPawn() && board.getCell(row, originCol - 1).getPawn().getPawnColor() == pawn.getPawnColor()) {
+                col = col - 1;
+                if (board.getCell(row, col).hasPawn() && board.getCell(row, col).getPawn().getPawnColor() == pawn.getPawnColor()) {
                     return false;
                 }
             }
@@ -101,7 +103,8 @@ public abstract class Move {
         //Up diagonal left
         if (queenDirection == QueenDirection.LEFT_DIAGONAL && destRow < originRow) {
             for (int row = originRow - 1; row <= destRow; row--) {
-                if (board.getCell(row, originCol - 1).hasPawn() && board.getCell(row, originCol - 1).getPawn().getPawnColor() == pawn.getPawnColor()) {
+                col = col - 1;
+                if (board.getCell(row, col).hasPawn() && board.getCell(row, col).getPawn().getPawnColor() == pawn.getPawnColor()) {
                     return false;
                 }
             }
@@ -109,7 +112,8 @@ public abstract class Move {
         //Down diagonal left
         if (queenDirection == QueenDirection.LEFT_DIAGONAL && destRow > originRow) {
             for (int row = originRow + 1; row <= destRow; row++) {
-                if (board.getCell(row, originCol + 1).hasPawn() && board.getCell(row, originCol + 1).getPawn().getPawnColor() == pawn.getPawnColor()) {
+                col = col + 1;
+                if (board.getCell(row, col).hasPawn() && board.getCell(row, col).getPawn().getPawnColor() == pawn.getPawnColor()) {
                     return false;
                 }
             }
