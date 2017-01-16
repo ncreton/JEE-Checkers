@@ -11,30 +11,7 @@
 
   <artifactId>jee-checkers-core</artifactId>
   <name>JEE Bootstrap :: Core model</name>
-  <packaging>jar</packaging>
-
-  <build>
-    <finalName>Checkers</finalName>
-    <plugins>
-
-      <!-- Plugin to run and test through maven -->
-      <plugin>
-        <groupId>org.eclipse.jetty</groupId>
-        <artifactId>jetty-maven-plugin</artifactId>
-        <version>${jetty.version}</version>
-        <configuration>
-          <scanIntervalSeconds>3</scanIntervalSeconds>
-        </configuration>
-      </plugin>
-
-      <plugin>
-        <groupId>org.apache.tomcat.maven</groupId>
-        <artifactId>tomcat7-maven-plugin</artifactId>
-        <version>2.2</version>
-      </plugin>
-
-    </plugins>
-  </build>
+  <packaging>war</packaging>
 
   <dependencies>
 
