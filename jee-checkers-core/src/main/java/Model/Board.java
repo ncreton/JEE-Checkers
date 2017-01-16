@@ -1,6 +1,7 @@
 package Model;
 
 import Exception.GameException;
+import Player.Player;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,16 +15,26 @@ public class Board {
     private int nbCols;
     private List<List<Cell>> cells;
 
+    private Player playerWhite;
+    private Player playerBlack;
+    private Player currentPlayer;
+    private Player lastPlayer;
+
     public Board() throws GameException {
         //Default board if no size and pawns are given (international board by default)
-        this(10, 10);
+        this(10, 10, "Player1", "Player2");
     }
 
-    public Board(int nbRows, int nbCols) throws GameException {
+    public Board(int nbRows, int nbCols, String playerName1, String playerName2) throws GameException {
         if (nbRows == nbCols && nbRows % 2 == 0) {
             this.nbRows = nbRows;
             this.nbCols = nbCols;
             this.cells = initCells();
+            int nbPawnsPerPlayer = this.computeNbPawnsPerPlayer();
+            this.playerWhite = new Player(playerName1, Color.WHITE, nbPawnsPerPlayer);
+            this.playerBlack = new Player(playerName2, Color.BLACK, nbPawnsPerPlayer);
+            this.currentPlayer = playerWhite;
+            this.lastPlayer = null;
             initPawns();
         } else {
             throw new GameException("Board must be square and even size");
@@ -128,5 +139,36 @@ public class Board {
             sb.append("\n");
         }
         return sb.toString();
+    }
+
+    public void switchPlayer() {
+        this.lastPlayer = this.currentPlayer;
+        this.currentPlayer = (this.currentPlayer == this.playerWhite) ? this.playerBlack : this.playerWhite;
+    }
+
+    public Player getCurrentPlayer() {
+        return currentPlayer;
+    }
+
+    public Player getLastPlayer() {
+        return lastPlayer;
+    }
+
+    public Player getPlayerWhite() {
+        return playerWhite;
+    }
+
+    public Player getPlayerBlack() {
+        return playerBlack;
+    }
+
+    public Player getOpponentPlayer() {
+        if(currentPlayer.getColorPlayer() == Color.BLACK) {
+            return getPlayerWhite();
+        }
+        if(currentPlayer.getColorPlayer() == Color.WHITE) {
+            return getPlayerBlack();
+        }
+        return null;
     }
 }

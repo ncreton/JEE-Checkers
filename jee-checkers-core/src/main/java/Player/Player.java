@@ -28,7 +28,7 @@ public class Player {
         return nbPawns;
     }
 
-    public void winPoint() {
-        nbPawns--;
+    public void loosePoint() {
+        this.nbPawns--;
     }
 }

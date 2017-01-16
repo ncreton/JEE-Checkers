@@ -11,6 +11,7 @@ public class Main {
         //Init game
         System.out.println(gameCheckers.getBoard());
 
+
         //Simple moves
         //gameCheckers.movePawn(3,0,4,1);
         //gameCheckers.movePawn(6,1,5,2);
@@ -37,8 +38,14 @@ public class Main {
         gameCheckers.play(4, 1, 2, 3);
         System.out.println(gameCheckers.getBoard());
 
+        System.out.println(gameCheckers.getBoard().getPlayerBlack().getNbPawns());
+        System.out.println(gameCheckers.getBoard().getPlayerWhite().getNbPawns());
+
         gameCheckers.play(2, 1, 3, 2);
         System.out.println(gameCheckers.getBoard());
+
+        System.out.println("Black: " + gameCheckers.getBoard().getPlayerBlack().getNbPawns());
+        System.out.println("White: " + gameCheckers.getBoard().getPlayerWhite().getNbPawns());
 
         gameCheckers.play(1, 0, 2, 1);
         System.out.println(gameCheckers.getBoard());
@@ -46,16 +53,25 @@ public class Main {
         gameCheckers.play(0, 1, 1, 0);
         System.out.println(gameCheckers.getBoard());
 
+        System.out.println(gameCheckers.getBoard().getPlayerBlack().getNbPawns());
+        System.out.println(gameCheckers.getBoard().getPlayerWhite().getNbPawns());
+
         gameCheckers.play(2, 3, 0, 1);
         System.out.println(gameCheckers.getBoard());
 
+        System.out.println(gameCheckers.getBoard().getPlayerBlack().getNbPawns());
+        System.out.println(gameCheckers.getBoard().getPlayerWhite().getNbPawns());
+
         //Queen Move
         //Good move
-//        gameCheckers.play(0, 1, 5, 6);
-//        System.out.println(gameCheckers.getBoard());
+        gameCheckers.play(0, 1, 5, 6);
+        System.out.println(gameCheckers.getBoard());
 
         //Bad move (TODO: Exception for moves)
-        gameCheckers.movePawn(0,1,1,1);
-        System.out.println(gameCheckers.getBoard());
+        //gameCheckers.movePawn(0,1,1,1);
+        //System.out.println(gameCheckers.getBoard());
+
+        System.out.println("Black: " + gameCheckers.getBoard().getPlayerBlack().getNbPawns());
+        System.out.println("White: " + gameCheckers.getBoard().getPlayerWhite().getNbPawns());
     }
 }

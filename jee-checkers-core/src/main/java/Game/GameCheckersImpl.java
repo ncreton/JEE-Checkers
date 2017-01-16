@@ -13,9 +13,6 @@ import Player.Player;
 public class GameCheckersImpl implements GameCheckers {
 
     private Board board;
-    private Player playerWhite;
-    private Player playerBlack;
-    private Player currentPlayer;
 
     public GameCheckersImpl() {
         this(10, 10, "Player 1", "Player 2");
@@ -23,11 +20,7 @@ public class GameCheckersImpl implements GameCheckers {
 
     public GameCheckersImpl(int rows, int columns, String playerName1, String playerName2) {
         try {
-            this.board = new Board(rows, columns);
-            int nbPawnsPerPlayer = board.computeNbPawnsPerPlayer();
-            this.playerWhite = new Player(playerName1, Color.WHITE, nbPawnsPerPlayer);
-            this.playerBlack = new Player(playerName2, Color.BLACK, nbPawnsPerPlayer);
-            this.currentPlayer = playerWhite;
+            this.board = new Board(rows, columns, playerName1, playerName2);
         } catch (GameException g) {
 
         }
@@ -39,8 +32,10 @@ public class GameCheckersImpl implements GameCheckers {
 
     @Override
     public void play(int originRow, int originCol, int destRow, int destCol) throws GameException {
-        switchPlayer();
-        movePawn(originRow, originCol, destRow, destCol);
+        if(board.getLastPlayer() != board.getCurrentPlayer()) {
+            movePawn(originRow, originCol, destRow, destCol);
+            board.switchPlayer();
+        }
     }
 
     /**
@@ -68,17 +63,13 @@ public class GameCheckersImpl implements GameCheckers {
         if (originCell.hasPawn() && !destCell.hasPawn()) {
             if (originCell.getPawn().getPawnType() == PawnType.NORMAL) {
                 Move normalMove = new NormalMove(board);
-                normalMove.move(originCell, destCell);
+                normalMove.move(board.getOpponentPlayer(), originCell, destCell);
             } else if (originCell.getPawn().getPawnType() == PawnType.QUEEN) {
                 Move queenMove = new QueenMove(board);
-                queenMove.move(originCell, destCell);
+                queenMove.move(board.getOpponentPlayer(), originCell, destCell);
             }
         } else {
             throw new GameException("Cell does not contains pawn");
         }
-    }
-
-    private void switchPlayer() {
-        this.currentPlayer = (this.currentPlayer == this.playerWhite) ? this.playerBlack : this.playerWhite;
     }
 }

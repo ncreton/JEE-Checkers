@@ -2,6 +2,7 @@ package Game;
 
 import Exception.GameException;
 import Model.*;
+import Player.Player;
 
 /**
  * Created by nicolas on 13/01/2017.
@@ -14,9 +15,10 @@ public abstract class Move {
         this.board = board;
     }
 
-    public abstract void move(Cell originCell, Cell destCell) throws GameException;
+    public abstract void move(Player currentPlayer, Cell originCell, Cell destCell) throws GameException;
 
     public abstract boolean isMoveAuthorized(Cell originCell, Cell destCell) throws GameException;
+
 
     /**
      * Checks if a pawn is taken during the move
@@ -37,6 +39,7 @@ public abstract class Move {
                 Cell intermediateCell = board.getCell(originRow + 1, originCol - 1);
                 if (intermediateCell.getPawn().getPawnColor() == Color.WHITE) {
                     intermediateCell.deletePawn();
+                    board.getOpponentPlayer().loosePoint();
                 }
             }
 
@@ -44,6 +47,7 @@ public abstract class Move {
                 Cell intermediateCell = board.getCell(originRow + 1, originCol + 1);
                 if (intermediateCell.getPawn().getPawnColor() == Color.WHITE) {
                     intermediateCell.deletePawn();
+                    board.getOpponentPlayer().loosePoint();
                 }
             }
         }
@@ -54,6 +58,7 @@ public abstract class Move {
                 //Opponent pawn
                 if (intermediateCell.getPawn().getPawnColor() == Color.BLACK) {
                     intermediateCell.deletePawn();
+                    board.getOpponentPlayer().loosePoint();
                 }
             }
 
@@ -61,6 +66,7 @@ public abstract class Move {
                 Cell intermediateCell = board.getCell(originRow - 1, originCol + 1);
                 if (intermediateCell.getPawn().getPawnColor() == Color.BLACK) {
                     intermediateCell.deletePawn();
+                    board.getOpponentPlayer().loosePoint();
                 }
             }
         }
@@ -141,6 +147,7 @@ public abstract class Move {
                 col = col + 1;
                 if (board.getCell(row, col).hasPawn()) {
                     board.getCell(row, col).deletePawn();
+                    board.getOpponentPlayer().loosePoint();
                 }
             }
         }
@@ -150,6 +157,7 @@ public abstract class Move {
                 col = col - 1;
                 if (board.getCell(row, col).hasPawn()) {
                     board.getCell(row, col).deletePawn();
+                    board.getOpponentPlayer().loosePoint();
                 }
             }
         }
@@ -159,6 +167,7 @@ public abstract class Move {
                 col = col - 1;
                 if (board.getCell(row, col).hasPawn()) {
                     board.getCell(row, col).deletePawn();
+                    board.getOpponentPlayer().loosePoint();
                 }
             }
         }
@@ -168,6 +177,7 @@ public abstract class Move {
                 col = col + 1;
                 if (board.getCell(row, col).hasPawn()) {
                     board.getCell(row, col).deletePawn();
+                    board.getOpponentPlayer().loosePoint();
                 }
             }
         }

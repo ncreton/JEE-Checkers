@@ -21,7 +21,7 @@ public class BoardTest {
 
     @Before
     public void doBefore() throws Exception {
-        board = new Board(nbRows, nbCols);
+        board = new Board(nbRows, nbCols, "Player1", "Player2");
     }
 
     @Test

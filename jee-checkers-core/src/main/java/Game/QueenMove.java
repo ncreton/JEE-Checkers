@@ -3,7 +3,9 @@ package Game;
 import Exception.GameException;
 import Model.Board;
 import Model.Cell;
+import Model.Color;
 import Model.QueenDirection;
+import Player.Player;
 
 import static java.lang.Math.abs;
 
@@ -23,7 +25,7 @@ public class QueenMove extends Move {
      * @param destCell
      * @throws GameException
      */
-    public void move(Cell originCell, Cell destCell) throws GameException {
+    public void move(Player opponentPlayer, Cell originCell, Cell destCell) throws GameException {
 
         int originRow = originCell.getRowIndex();
         int originCol = originCell.getColIndex();
@@ -55,8 +57,9 @@ public class QueenMove extends Move {
         int originCol = originCell.getColIndex();
         int destRow = destCell.getRowIndex();
         int destCol = destCell.getColIndex();
+        Color color = originCell.getPawn().getPawnColor();
 
-        if(abs(destRow - originRow) == abs(destCol - originCol)){
+        if(color == Color.BLACK && board.getCurrentPlayer().getColorPlayer() == Color.BLACK || color == Color.WHITE && board.getCurrentPlayer().getColorPlayer() == Color.WHITE  && abs(destRow - originRow) == abs(destCol - originCol)){
             return true;
         } else {
             throw new GameException("Movement not authorized");

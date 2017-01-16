@@ -4,6 +4,7 @@ import Exception.GameException;
 import Model.Board;
 import Model.Cell;
 import Model.Color;
+import Player.Player;
 
 /**
  * Created by nicolas on 13/01/2017.
@@ -21,7 +22,7 @@ public class NormalMove extends Move {
      * @param destCell
      * @throws GameException
      */
-    public void move(Cell originCell, Cell destCell) throws GameException {
+    public void move(Player opponentPlayer, Cell originCell, Cell destCell) throws GameException {
         if (isMoveAuthorized(originCell, destCell)) {
             takePawnDuringMove(originCell, destCell);
             board.swapPawn(originCell, destCell);
@@ -49,13 +50,13 @@ public class NormalMove extends Move {
         int destCol = destCell.getColIndex();
         Color color = originCell.getPawn().getPawnColor();
 
-        if (color == Color.BLACK) {
+        if (color == Color.BLACK && board.getCurrentPlayer().getColorPlayer() == Color.BLACK) {
             if (destRow == originRow + 1 && Math.abs(destCol - originCol) == 1 || destRow == originRow + 2 && Math.abs(destCol - originCol) == 2) {
                 return true;
             } else {
                 throw new GameException("Black pawn can only go down in a +-2 square");
             }
-        } else if (color == Color.WHITE) {
+        } else if (color == Color.WHITE && board.getCurrentPlayer().getColorPlayer() == Color.WHITE) {
             if (destRow == originRow - 1 && Math.abs(destCol - originCol) == 1 || destRow == originRow - 2 && Math.abs(destCol - originCol) == 2) {
                 return true;
             } else {
