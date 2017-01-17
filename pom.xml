@@ -20,7 +20,7 @@
 
   <modules>
     <module>jee-checkers-core</module>
-    <module>jee-Checkers-web</module>
+    <module>jee-checkers-web</module>
     <!-- module>jee-bootstrap-jpa</module>
     <module>jee-bootstrap-web</module>
     <module>jee-bootstrap-rest</module -->
