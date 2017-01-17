@@ -1,4 +1,5 @@
-<%--
+<%@ page import="Game.GameCheckersImpl" %>
+<%@ page import="Helper.GameHelper" %><%--
   Created by IntelliJ IDEA.
   User: Nicolas
   Date: 17/01/2017
@@ -11,6 +12,12 @@
     <title>Test page web</title>
 </head>
 <body>
+
+<h1>Game Checkers JEE</h1>
+
+<%
+    GameCheckersImpl game = GameHelper.getGame(request);
+%>
 
 </body>
 </html>
