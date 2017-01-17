@@ -16,7 +16,6 @@
     <version>1.0-SNAPSHOT</version>
 
     <build>
-        <finalName>Checkers</finalName>
         <plugins>
 
             <!-- Plugin to run and test through maven -->
