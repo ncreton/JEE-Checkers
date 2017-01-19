@@ -2,27 +2,35 @@ package Helper;
 
 import Game.GameCheckersImpl;
 
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
 /**
  * Created by Nicolas on 17/01/2017.
  */
-public class GameHelper {
-    private static GameCheckersImpl gameChecker;
+public class GameHelper extends HttpServlet {
+    private static GameCheckersImpl gameCheckers;
 
-    public static GameCheckersImpl getGame(HttpServletRequest request){
+    public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
         if (request.getSession().getAttribute("game") == null){
-            return gameChecker = new GameCheckersImpl(10,10,"Nicolas", "Baptiste");
-        }else {
-            return gameChecker;
-        }
-    }
+            String player1 = request.getParameter("Player1");
+            String player2 = request.getParameter("Player2");
+            int xCoordinate = Integer.parseInt(request.getParameter("xCoordinate"));
+            int yCoordinate = Integer.parseInt(request.getParameter("yCoordinate"));
 
-    public static String getDrawingGame(HttpServletRequest request){
-        if (gameChecker != null){
-            return gameChecker.toString();
-        }else{
-            return "Pas de jeu en cours";
+            if(!player1.isEmpty() && !player2.isEmpty() && xCoordinate > 0 && yCoordinate > 0){
+                gameCheckers = new GameCheckersImpl(yCoordinate,xCoordinate,player1, player2);
+            }
+            else {
+                gameCheckers = new GameCheckersImpl(10,10,"Player1", "Player2");
+            }
+            request.setAttribute("gameConfiguration", gameCheckers);
         }
+        System.out.println("in GameHelper");
+        this.getServletContext().getRequestDispatcher( "/webapp/views/game.jsp" ).forward( request, response );
+
     }
 }

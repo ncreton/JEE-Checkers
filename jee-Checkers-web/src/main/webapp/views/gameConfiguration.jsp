@@ -5,8 +5,6 @@
   Time: 10:36
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page import="Game.GameCheckersImpl" %>
-<%@ page import="Helper.GameHelper" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
     <head>
@@ -21,12 +19,8 @@
 
         <h1 class="center-align">Game Checkers</h1>
 
-        <%
-            GameCheckersImpl game = GameHelper.getGame(request);
-        %>
-
         <div class="row">
-            <form class="col s12 m4 offset-m4" method="get" action="gameConfiguration">
+            <form class="col s12 m4 offset-m4" method="get" action="GameHelper">
                 <label for="Player1">Player1</label>
                 <input type="text" id="Player1" name="Player1" value="" maxlength="20" />
                 <br />
@@ -36,13 +30,13 @@
                 <br />
 
                 <label for="yCoordinate">Board lines</label>
-                <input type="number" id="yCoordinate" name="yCoordinate" value="" maxlength="3" />
+                <input type="number" id="yCoordinate" name="yCoordinate" value="10" min="10" step="1" />
                 <br />
 
                 <label for="xCoordinate">Board columns</label>
-                <input type="number" id="xCoordinate" name="xCoordinate" value="" maxlength="3" />
+                <input type="number" id="xCoordinate" name="xCoordinate" value="10" min="10" step="1" />
 
-                <button class="btn waves-effect waves-light col s12 m6 offset-m3" type="submit" name="action">Submit
+                <button class="btn waves-effect waves-light col s12 m6 offset-m3" type="submit" name="action">Play
                     <i class="material-icons right">send</i>
                 </button>
             </form>

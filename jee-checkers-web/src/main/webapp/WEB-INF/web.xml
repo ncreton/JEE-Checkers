@@ -5,6 +5,15 @@
          version="3.1">
 
     <welcome-file-list>
-        <welcome-file>views/index.jsp</welcome-file>
+        <welcome-file>views/gameConfiguration.jsp</welcome-file>
     </welcome-file-list>
+
+    <servlet>
+        <servlet-name>GameConfiguration</servlet-name>
+        <servlet-class>Helper.GameHelper</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>GameConfiguration</servlet-name>
+        <url-pattern>/GameHelper</url-pattern>
+    </servlet-mapping>
 </web-app>
