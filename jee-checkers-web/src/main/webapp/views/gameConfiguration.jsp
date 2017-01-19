@@ -11,8 +11,8 @@
         <title>Game Checkers Configuration</title>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-        <link rel="stylesheet" href="../css/materialize.min.css">
-        <link rel="stylesheet" href="../css/main.css">
+        <link rel="stylesheet" href="css/materialize.min.css">
+        <link rel="stylesheet" href="css/main.css">
         <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     </head>
     <body>
@@ -43,8 +43,8 @@
         </div>
 
         <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-        <script type="text/javascript" src="../js/materialize.min.js"></script>
-        <script type="text/javascript" src="../js/angular.min.js"></script>
-        <script type="text/javascript" src="../js/main.js"></script>
+        <script type="text/javascript" src="js/materialize.min.js"></script>
+        <script type="text/javascript" src="js/angular.min.js"></script>
+        <script type="text/javascript" src="js/main.js"></script>
     </body>
 </html>
