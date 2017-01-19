@@ -20,7 +20,7 @@
         <h1 class="center-align">Game Checkers</h1>
 
         <div class="row">
-            <form class="col s12 m4 offset-m4" method="get" action="GameHelper">
+            <form class="col s12 m4 offset-m4" method="post" action="GameHelper">
                 <label for="Player1">Player1</label>
                 <input type="text" id="Player1" name="Player1" value="" maxlength="20" />
                 <br />

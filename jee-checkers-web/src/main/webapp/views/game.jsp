@@ -17,18 +17,52 @@
         <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     </head>
     <body>
-        <p>Current player : ${ gameConfiguration.board.getCurrentPlayer().getName() }</p>
+        <div class="row">
+            <div class="col s12 m4">
+                <div class="card green lighten-2">
+                    <div class="card-content white-text">
+                        <span class="card-title">${ gameConfiguration.board.getPlayerWhite().getName() }</span>
+                        <p>Pawns: ${ gameConfiguration.getBoard().getPlayerWhite().getNbPawns() }</p>
+                    </div>
+                </div>
+            </div>
 
-        <p>Player1 : ${ gameConfiguration.board.getPlayerWhite().getName() }</p>
-        <p>Pawns's Player1 : ${ gameConfiguration.getBoard().getPlayerWhite().getNbPawns() }</p>
+            <div class="col s12 m4">
+                <div class="card white">
+                    <div class="card-content center-align">
+                        <span class="card-title">Current player</span>
+                        <p>${ gameConfiguration.board.getCurrentPlayer().getName() }</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col s12 m4">
+                <div class="card deep-orange lighten-2">
+                    <div class="card-content white-text right-align">
+                        <span class="card-title">${ gameConfiguration.board.getPlayerBlack().getName() }</span>
+                        <p>Pawns: ${ gameConfiguration.getBoard().getPlayerBlack().getNbPawns() }</p>
+                    </div>
+                </div>
+            </div>
+        </div>
 
 
-        <p>Player2 : ${ gameConfiguration.board.getPlayerBlack().getName() }</p>
-        <p>Pawns's Player2 : ${ gameConfiguration.getBoard().getPlayerBlack().getNbPawns() }</p>
 
-        <p>Board lines : ${ gameConfiguration.board.getNbRows() }</p>
-        <p>Board columns : ${ gameConfiguration.board.getNbCols() }</p>
 
+        <p>Board size : ${ gameConfiguration.board.getNbRows() } x ${ gameConfiguration.board.getNbCols() }</p>
+
+        <div ng-app="app">
+            <div ng-controller="mainCtrl">
+                <table class="responsive-table">
+                    <tbody ng-repeat="test in testArr">
+                    <tr ng-repeat="t1 in test.first">
+                        <td>{{t1.value}}</td>
+                        <td>{{testArr[1].second[$index].value}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
 
 
         <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>

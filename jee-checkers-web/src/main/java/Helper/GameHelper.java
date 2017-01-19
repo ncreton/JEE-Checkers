@@ -14,7 +14,7 @@ import java.io.IOException;
 public class GameHelper extends HttpServlet {
     private static GameCheckersImpl gameCheckers;
 
-    public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+    public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
         if (request.getSession().getAttribute("game") == null){
             String player1 = request.getParameter("Player1");
             String player2 = request.getParameter("Player2");
