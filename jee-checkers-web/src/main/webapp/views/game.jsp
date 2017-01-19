@@ -47,20 +47,13 @@
         </div>
 
 
-
-
         <p>Board size : ${ gameConfiguration.board.getNbRows() } x ${ gameConfiguration.board.getNbCols() }</p>
 
-        <div ng-app="app">
+        <div ng-app="app" class="center-align">
             <div ng-controller="mainCtrl">
-                <table class="responsive-table">
-                    <tbody ng-repeat="test in testArr">
-                    <tr ng-repeat="t1 in test.first">
-                        <td>{{t1.value}}</td>
-                        <td>{{testArr[1].second[$index].value}}</td>
-                    </tr>
-                    </tbody>
-                </table>
+                <div ng-repeat="n in range(1,10)" class="removeSpace">
+                    <div ng-repeat="n in range(1,10)" class="gameCell"></div>
+                </div>
             </div>
         </div>
 
