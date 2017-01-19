@@ -29,8 +29,7 @@ public class GameHelper extends HttpServlet {
             }
             request.setAttribute("gameConfiguration", gameCheckers);
         }
-        System.out.println("in GameHelper");
-        this.getServletContext().getRequestDispatcher( "/webapp/views/game.jsp" ).forward( request, response );
+        this.getServletContext().getRequestDispatcher( "/views/game.jsp" ).forward( request, response );
 
     }
 }

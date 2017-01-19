@@ -17,10 +17,8 @@
         <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     </head>
     <body>
-        <p>Player1 : ${ gameConfiguration.player1 }</p>
-        <p>Player2 : ${ gameConfiguration.player2 }</p>
-        <p>Board lines : ${ gameConfiguration.yCoordinate }</p>
-        <p>Board columns : ${ gameConfiguration.xCoordinate }</p>
+    <p>Test : ${ gameConfiguration.board }</p>
+
 
         <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
         <script type="text/javascript" src="../js/materialize.min.js"></script>
