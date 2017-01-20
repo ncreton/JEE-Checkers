@@ -78,7 +78,7 @@
         <div class="center-align" ng-show="board != undefined">
             <div ng-controller="mainCtrl" class="removeSpace">
                 <div ng-init="rowIndex = $index" ng-repeat="row in range(1,board.nbRows)">
-                    <div ng-repeat="col in range(1,board.nbCols)" class="gameCell">{{rowIndex}}|{{$index}}</div>
+                    <div ng-repeat="col in range(1,board.nbCols)" class="gameCell" ng-style="setCellColor(rowIndex,$index)" ng-click="play(rowIndex,$index)"></div>
                 </div>
             </div>
         </div>

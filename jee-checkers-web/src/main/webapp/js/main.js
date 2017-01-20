@@ -47,6 +47,28 @@ app.controller('confController', function($scope, $http){
         delete $scope.board;
     };
 
+    $scope.setCellColor = function(rowIndex, colIndex) {
+        if(colIndex %2 == 0 && rowIndex %2 == 0){
+            return {"backgroundColor": "black"};
+        }
+        if(colIndex %2 == 0 && rowIndex %2 == 1){
+            return {"backgroundColor": "white"};
+        }
+
+        if(colIndex %2 == 1 && rowIndex %2 == 0){
+            return {"backgroundColor": "white"};
+        }
+
+        if(colIndex %2 == 1 && rowIndex %2 == 1){
+            return {"backgroundColor": "black"};
+        }
+    };
+
+    $scope.play = function(rowIndex, colIndex) {
+        console.log("row" + rowIndex);
+        console.log("col" + colIndex);
+    };
+
 });
 
 
