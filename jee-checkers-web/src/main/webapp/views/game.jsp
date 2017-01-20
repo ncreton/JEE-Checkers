@@ -12,9 +12,9 @@
         <title>Checkers</title>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-        <link rel="stylesheet" href="css/materialize.min.css">
-        <link rel="stylesheet" href="css/main.css">
         <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link rel="stylesheet" href="css/materialize.min.css">
+        <link rel="stylesheet" type="text/css" href="css/main.css">
     </head>
     <body>
         <div class="row">
@@ -50,17 +50,18 @@
         <p>Board size : ${ gameConfiguration.board.getNbRows() } x ${ gameConfiguration.board.getNbCols() }</p>
 
         <div ng-app="app" class="center-align">
-            <div ng-controller="mainCtrl">
-                <div ng-repeat="n in range(1,10)" class="removeSpace">
+            <div ng-controller="mainCtrl" class="removeSpace">
+                <div ng-repeat="n in range(1,10)">
                     <div ng-repeat="n in range(1,10)" class="gameCell"></div>
                 </div>
             </div>
         </div>
 
 
-        <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-        <script type="text/javascript" src="js/materialize.min.js"></script>
+        <script type="text/javascript" src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
         <script type="text/javascript" src="js/angular.min.js"></script>
         <script type="text/javascript" src="js/main.js"></script>
+        <script type="text/javascript" src="js/materialize.min.js"></script>
+
     </body>
 </html>

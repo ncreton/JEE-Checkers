@@ -1,10 +1,19 @@
 .gameCell {
-    border: 1px solid grey;
-    width: 60px;
-    padding-top: 60px;
+    border: 0.1px solid grey;
+    width: 4%;
+    padding-top: 4%;
     display: inline-block;
+    background-color: black;
+}
+
+.gameCell:hover {
+    cursor: pointer;
+    opacity: .8;
 }
 
 .removeSpace {
     line-height: 0px;
 }
+
+
+
