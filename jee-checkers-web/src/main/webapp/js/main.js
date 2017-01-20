@@ -57,6 +57,7 @@ app.controller('confController', function($scope, $http){
             console.log(success);
             $scope.originRow = null;
             $scope.originCol = null;
+            $scope.board = success.data.board;
         }),function(error){
             console.log(error);
             $scope.originRow = null;
@@ -74,18 +75,18 @@ app.controller('confController', function($scope, $http){
 
     $scope.setCellColor = function(rowIndex, colIndex) {
         if(colIndex %2 == 0 && rowIndex %2 == 0){
-            return {"backgroundColor": "black"};
+            return {"backgroundColor": "white"};
         }
         if(colIndex %2 == 0 && rowIndex %2 == 1){
-            return {"backgroundColor": "white"};
+            return {"backgroundColor": "black"};
         }
 
         if(colIndex %2 == 1 && rowIndex %2 == 0){
-            return {"backgroundColor": "white"};
+            return {"backgroundColor": "black"};
         }
 
         if(colIndex %2 == 1 && rowIndex %2 == 1){
-            return {"backgroundColor": "black"};
+            return {"backgroundColor": "white"};
         }
     };
 
