@@ -17,7 +17,7 @@
     </head>
 
     <body ng-app="AppChecker" ng-controller="confController">
-        <h1 class="center-align">Game Checkers</h1>
+        <h1 class="center-align" ng-show="board == undefined">Game Checkers</h1>
 
         <div class="row" ng-show="board == undefined">
             <form class="col s12 m4 offset-m4" <%--method="post" action="GameHelper"--%> ng-submit="postConfToServer()">
@@ -42,13 +42,40 @@
             </form>
         </div>
 
-        <div class="row">
-            <p>Board cols : {{ board.nbCols}}</p>
-            <p>Board rows : {{ board.nbRows}}</p>
-            <p>Current player : {{ board.currentPlayer.name }}</p>
+        <div class="row" ng-show="board != undefined">
+            <div class="col s12 m4">
+                <div class="card green lighten-2">
+                    <div class="card-content white-text">
+                        <span class="card-title">{{board.playerWhite.name}}</span>
+                        <p>Pawns: {{board.playerWhite.nbPawns}}</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col s12 m4">
+                <div class="card white">
+                    <div class="card-content center-align">
+                        <span class="card-title">Current player</span>
+                        <p>{{board.currentPlayer.name}}</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col s12 m4">
+                <div class="card deep-orange lighten-2">
+                    <div class="card-content white-text right-align">
+                        <span class="card-title">{{board.playerBlack.name}}</span>
+                        <p>Pawns: {{board.playerBlack.nbPawns}}</p>
+                    </div>
+                </div>
+            </div>
         </div>
 
-        <div class="center-align" ng-if="board != undefined">
+        <div class="row center-align" ng-show="board != undefined">
+            <p>Board cols : {{ board.nbCols}} | Board rows : {{ board.nbRows}} | Current player : {{ board.currentPlayer.name }}</p>
+        </div>
+
+        <div class="center-align" ng-show="board != undefined">
             <div ng-controller="mainCtrl" class="removeSpace">
                 <div ng-repeat="n in range(1,10)">
                     <div ng-repeat="n in range(1,10)" class="gameCell"></div>
