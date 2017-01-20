@@ -1,8 +1,15 @@
+#gameContainer {
+    background-color: brown;
+    width: 640px;
+    height: 640px;
+    padding: 20px;
+}
+
 .gameCell {
     border: 0.1px solid grey;
-    width: 4%;
-    padding-top: 4%;
-    display: inline-block;
+    float: left;
+    width: 60px;
+    height: 60px;
 }
 
 .gameCell:hover {
@@ -10,9 +17,24 @@
     opacity: .8;
 }
 
+.circle {
+    border-radius: 50%;
+    width: 94%;
+    height: 94%;
+    margin: 3%;
+    color: black;
+    text-align: center;
+    line-height: 56px;
+}
+
 .removeSpace {
     line-height: 0px;
 }
+
+
+
+
+
 
 
 

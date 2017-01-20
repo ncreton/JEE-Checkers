@@ -64,6 +64,23 @@ app.controller('confController', function($scope, $http){
         }
     };
 
+    //TODO: Pawns for queens
+    $scope.setStyling = function(rowIndex, colIndex) {
+        var cell = $scope.board.cells[rowIndex][colIndex];
+        console.log(cell.pawn);
+        if(cell.pawn != undefined){
+            if(cell.pawn.pawnColor == "WHITE" && cell.pawn.pawnType == "NORMAL"){
+                return {"backgroundColor": "#81c784"};
+            }
+            if(cell.pawn.pawnColor == "BLACK" && cell.pawn.pawnType == "NORMAL"){
+                return {"backgroundColor": "#ff8a65"};
+            }
+        }
+        else {
+            return {"backgroundColor": "none"};
+        }
+    }
+
     $scope.play = function(rowIndex, colIndex) {
         console.log("row" + rowIndex);
         console.log("col" + colIndex);

@@ -75,13 +75,19 @@
             <span><button class="btn waves-effect waves-light" ng-click="resetGame()">Reset</button></span>
         </div>
 
-        <div class="center-align" ng-show="board != undefined">
+        <div id="gameContainer" class="row center-align" ng-show="board != undefined">
             <div ng-controller="mainCtrl" class="removeSpace">
-                <div ng-init="rowIndex = $index" ng-repeat="row in range(1,board.nbRows)">
-                    <div ng-repeat="col in range(1,board.nbCols)" class="gameCell" ng-style="setCellColor(rowIndex,$index)" ng-click="play(rowIndex,$index)"></div>
+                <div ng-init="rowIndex = $index" ng-repeat="row in range(1,board.nbRows)" style="width:100%">
+                    <div ng-repeat="col in range(1,board.nbCols)" class="gameCell" ng-style="setCellColor(rowIndex,$index)" ng-click="play(rowIndex,$index)">
+                        <div ng-style="setStyling(rowIndex,$index)" class="circle">
+                            <span></span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
+
+
 
         <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
         <script type="text/javascript" src="js/materialize.min.js"></script>
