@@ -31,7 +31,6 @@ app.controller('confController', function($scope, $http){
                 'Content-Type': 'application/json'
             }
         }).then(function(success) {
-            //$scope.person = data;
             console.log(success);
             $scope.board = success.data.board;
         }),function(error) {
@@ -39,6 +38,31 @@ app.controller('confController', function($scope, $http){
         };
 
     };
+
+    $scope.postPlayToServer = function(destRow, destCol){
+        $http({
+            method : 'POST',
+            url : 'GameHelper',
+            data : {
+                originRow : $scope.originRow,
+                originCol : $scope.originCol,
+                destRow : destRow,
+                destCol : destCol,
+                Token : "PLAY"
+            },
+            headers: {
+                'Content-Type' : 'application/json'
+            }
+        }).then(function (success){
+            console.log(success);
+            $scope.originRow = null;
+            $scope.originCol = null;
+        }),function(error){
+            console.log(error);
+            $scope.originRow = null;
+            $scope.originCol = null;
+        }
+    }
 
     $scope.resetGame = function() {
         delete $scope.Player1;
@@ -68,7 +92,7 @@ app.controller('confController', function($scope, $http){
     //TODO: Pawns for queens
     $scope.setStyling = function(rowIndex, colIndex) {
         var cell = $scope.board.cells[rowIndex][colIndex];
-        console.log(cell.pawn);
+        //console.log(cell.pawn);
         if(cell.pawn != undefined){
             if(cell.pawn.pawnColor == "WHITE" && cell.pawn.pawnType == "NORMAL"){
                 return {"backgroundColor": "#81c784"};
@@ -83,8 +107,13 @@ app.controller('confController', function($scope, $http){
     }
 
     $scope.play = function(rowIndex, colIndex) {
-        console.log("row" + rowIndex);
-        console.log("col" + colIndex);
+        if($scope.originRow == null && $scope.originCol == null){
+            $scope.originRow = rowIndex;
+            $scope.originCol = colIndex;
+            //console.log("saving first click ", $scope.originRow, " ", $scope.originCol)
+        }else{
+            $scope.postPlayToServer(rowIndex, colIndex);
+        }
     };
 
 });

@@ -23,20 +23,21 @@ import com.google.gson.JsonObject;
  */
 public class GameHelper extends HttpServlet {
     private static GameCheckersImpl gameCheckers;
+    private static HttpSession session;
 
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
 
         JsonObject parameters = new Gson().fromJson(request.getReader(), JsonObject.class);
-        GameCheckersImpl session = (GameCheckersImpl) request.getSession().getAttribute("game");
+        session = request.getSession();
         GameToken gameToken = getTokenFromRequest(parameters);
 
         switch (gameToken){
             case NEWGAME:
-                gameCheckers = newGame(parameters, session);
+                gameCheckers = newGame(parameters);
                 break;
             case PLAY:
                 try {
-                    gameCheckers = play(parameters, session);
+                    gameCheckers = play(parameters);
                 } catch (GameException e) {
                     e.printStackTrace();
                 }
@@ -53,36 +54,47 @@ public class GameHelper extends HttpServlet {
         return token;
     }
 
-    private GameCheckersImpl newGame(JsonObject parameters, GameCheckersImpl session) throws IOException {
-        if (session == null){
-            String player1 = parameters.get("Player1").getAsString();
-            String player2 = parameters.get("Player2").getAsString();
-            int xCoordinate = parameters.get("xCoordinate").getAsInt();
-            int yCoordinate = parameters.get("yCoordinate").getAsInt();
+    private GameCheckersImpl newGame(JsonObject parameters) throws IOException {
+        String player1 = parameters.get("Player1").getAsString();
+        String player2 = parameters.get("Player2").getAsString();
+        int xCoordinate = parameters.get("xCoordinate").getAsInt();
+        int yCoordinate = parameters.get("yCoordinate").getAsInt();
 
-            if(!player1.isEmpty() && !player2.isEmpty() && xCoordinate > 0 && yCoordinate > 0){
-                return gameCheckers = new GameCheckersImpl(yCoordinate,xCoordinate,player1, player2);
-            }
-            else {
-                return gameCheckers = new GameCheckersImpl(10,10,"Player1", "Player2");
-            }
-        }else{
-            return session;
+        if(!player1.isEmpty() && !player2.isEmpty() && xCoordinate > 0 && yCoordinate > 0){
+            gameCheckers = new GameCheckersImpl(yCoordinate,xCoordinate,player1, player2);
         }
+        else {
+            gameCheckers = new GameCheckersImpl(10,10,"Player1", "Player2");
+        }
+        saveSessionObject();
+        return gameCheckers;
     }
 
-    private GameCheckersImpl play(JsonObject parameters, GameCheckersImpl session) throws IOException, GameException {
-        if (session != null){
+    private GameCheckersImpl play(JsonObject parameters) throws IOException, GameException {
+        if (getSessionObject() != null){
+            gameCheckers = getSessionObject();
             int originRow = parameters.get("originRow").getAsInt();
             int originCol = parameters.get("originCol").getAsInt();
             int destRow = parameters.get("destRow").getAsInt();
             int destCol = parameters.get("destCol").getAsInt();
-
             gameCheckers.play(originRow, originCol, destRow, destCol);
-
+            saveSessionObject();
             return gameCheckers;
         }else{
-            return new GameCheckersImpl(10,10,"Player1", "Player2");
+            gameCheckers = new GameCheckersImpl(10,10,"Player1", "Player2");
+            saveSessionObject();
+            return gameCheckers;
         }
+    }
+
+    private void saveSessionObject(){
+        session.setAttribute("game", gameCheckers);
+    }
+
+    private GameCheckersImpl getSessionObject(){
+        if (session.getAttribute("game") != null){
+            return (GameCheckersImpl) session.getAttribute("game");
+        }
+        return null;
     }
 }
