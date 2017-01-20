@@ -49,7 +49,7 @@
 
         <p>Board size : ${ gameConfiguration.board.getNbRows() } x ${ gameConfiguration.board.getNbCols() }</p>
 
-        <div ng-app="app" class="center-align">
+        <div ng-app="AppChecker" class="center-align">
             <div ng-controller="mainCtrl" class="removeSpace">
                 <div ng-repeat="n in range(1,10)">
                     <div ng-repeat="n in range(1,10)" class="gameCell"></div>

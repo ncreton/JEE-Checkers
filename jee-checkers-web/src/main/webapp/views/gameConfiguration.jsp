@@ -30,11 +30,11 @@
                 <br />
 
                 <label for="yCoordinate">Board lines</label>
-                <input type="number" id="yCoordinate" name="yCoordinate" value="10" min="10" step="1" data-ng-model="yCoordinate"/>
+                <input type="number" id="yCoordinate" name="yCoordinate" value="" min="10" step="1" data-ng-model="yCoordinate"/>
                 <br />
 
                 <label for="xCoordinate">Board columns</label>
-                <input type="number" id="xCoordinate" name="xCoordinate" value="10" min="10" step="1" data-ng-model="xCoordinate"/>
+                <input type="number" id="xCoordinate" name="xCoordinate" value="" min="10" step="1" data-ng-model="xCoordinate"/>
 
                 <button class="btn waves-effect waves-light col s12 m6 offset-m3" type="submit" name="action">Play
                     <i class="material-icons right">send</i>
@@ -52,35 +52,5 @@
         <script type="text/javascript" src="js/materialize.min.js"></script>
         <script type="text/javascript" src="js/angular.min.js"></script>
         <script type="text/javascript" src="js/main.js"></script>
-
-        <script>
-            var app = angular.module('AppChecker', []);
-
-            app.controller('confController', function($scope, $http){
-                $scope.postConfToServer = function() {
-                    $http({
-                        method : 'POST',
-                        url : 'GameHelper',
-                        data : {
-                            Player1 : $scope.Player1,
-                            Player2 : $scope.Player2,
-                            xCoordinate : $scope.xCoordinate,
-                            yCoordinate : $scope.yCoordinate
-                        },
-                        headers: {
-                            'Content-Type': 'application/json'
-                        }
-                    }).then(function(success) {
-                        //$scope.person = data;
-                        console.log(success);
-                        $scope.board = success.data.board;
-                    }),function(error) {
-                        console.log(error);
-                    };
-
-                };
-            });
-        </script>
-
     </body>
 </html>

@@ -1,7 +1,7 @@
 /**
  * Created by baptiste on 19/01/2017.
  */
-var app = angular.module('app', []);
+var app = angular.module('AppChecker', []);
 
 app.controller('mainCtrl', function ($scope) {
 
@@ -13,7 +13,32 @@ app.controller('mainCtrl', function ($scope) {
         }
         return input;
     };
-
-
 });
+
+app.controller('confController', function($scope, $http){
+    $scope.postConfToServer = function() {
+        $http({
+            method : 'POST',
+            url : 'GameHelper',
+            data : {
+                Player1 : $scope.Player1,
+                Player2 : $scope.Player2,
+                xCoordinate : $scope.xCoordinate,
+                yCoordinate : $scope.yCoordinate
+            },
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(function(success) {
+            //$scope.person = data;
+            console.log(success);
+            $scope.board = success.data.board;
+        }),function(error) {
+            console.log(error);
+        };
+
+    };
+});
+
+
 
