@@ -38,6 +38,15 @@ app.controller('confController', function($scope, $http){
         };
 
     };
+
+    $scope.resetGame = function() {
+        delete $scope.Player1;
+        delete $scope.Player2;
+        delete $scope.xCoordinate;
+        delete $scope.yCoordinate;
+        delete $scope.board;
+    };
+
 });
 
 
