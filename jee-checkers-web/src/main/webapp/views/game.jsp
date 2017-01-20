@@ -8,7 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
     <head>
-        <title>Game Checkers Configuration</title>
+        <title>Game Checkers</title>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <link rel="stylesheet" href="css/materialize.min.css">
@@ -72,14 +72,13 @@
         </div>
 
         <div class="row center-align" ng-show="board != undefined">
-            <p>Board cols : {{ board.nbCols}} | Board rows : {{ board.nbRows}} | Current player : {{ board.currentPlayer.name }}</p>
             <span><button class="btn waves-effect waves-light" ng-click="resetGame()">Reset</button></span>
         </div>
 
         <div class="center-align" ng-show="board != undefined">
             <div ng-controller="mainCtrl" class="removeSpace">
-                <div ng-repeat="n in range(1,10)">
-                    <div ng-repeat="n in range(1,10)" class="gameCell"></div>
+                <div ng-init="rowIndex = $index" ng-repeat="row in range(1,board.nbRows)">
+                    <div ng-repeat="col in range(1,board.nbCols)" class="gameCell">{{rowIndex}}|{{$index}}</div>
                 </div>
             </div>
         </div>
