@@ -21,6 +21,7 @@ app.controller('confController', function($scope, $http){
             method : 'POST',
             url : 'GameHelper',
             data : {
+                Token : "NEWGAME",
                 Player1 : $scope.Player1,
                 Player2 : $scope.Player2,
                 xCoordinate : $scope.xCoordinate,
