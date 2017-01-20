@@ -19,7 +19,7 @@
     <body ng-app="AppChecker" ng-controller="confController">
         <h1 class="center-align">Game Checkers</h1>
 
-        <div class="row">
+        <div class="row" ng-show="board == undefined">
             <form class="col s12 m4 offset-m4" <%--method="post" action="GameHelper"--%> ng-submit="postConfToServer()">
                 <label for="Player1">Player1</label>
                 <input type="text" id="Player1" name="Player1" value="" maxlength="20" data-ng-model="Player1" />
@@ -46,6 +46,14 @@
             <p>Board cols : {{ board.nbCols}}</p>
             <p>Board rows : {{ board.nbRows}}</p>
             <p>Current player : {{ board.currentPlayer.name }}</p>
+        </div>
+
+        <div class="center-align" ng-if="board != undefined">
+            <div ng-controller="mainCtrl" class="removeSpace">
+                <div ng-repeat="n in range(1,10)">
+                    <div ng-repeat="n in range(1,10)" class="gameCell"></div>
+                </div>
+            </div>
         </div>
 
         <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
