@@ -33,12 +33,8 @@ public class GameCheckersImpl implements GameCheckers {
     @Override
     public void play(int originRow, int originCol, int destRow, int destCol) throws GameException {
         if(board.getLastPlayer() != board.getCurrentPlayer()) {
-            try{
-                movePawn(originRow, originCol, destRow, destCol);
-                board.switchPlayer();
-            } catch (GameException e) {
-                e.printStackTrace();
-            }
+            movePawn(originRow, originCol, destRow, destCol);
+            board.switchPlayer();
         }
     }
 
@@ -66,19 +62,11 @@ public class GameCheckersImpl implements GameCheckers {
         //Check if the selected cell contains pawn and try to move
         if (originCell.hasPawn() && !destCell.hasPawn()) {
             if (originCell.getPawn().getPawnType() == PawnType.NORMAL) {
-                try{
-                    Move normalMove = new NormalMove(board);
-                    normalMove.move(board.getOpponentPlayer(), originCell, destCell);
-                } catch (GameException e) {
-                    e.printStackTrace();
-                }
+                Move normalMove = new NormalMove(board);
+                normalMove.move(board.getOpponentPlayer(), originCell, destCell);
             } else if (originCell.getPawn().getPawnType() == PawnType.QUEEN) {
-                try {
-                    Move queenMove = new QueenMove(board);
-                    queenMove.move(board.getOpponentPlayer(), originCell, destCell);
-                } catch (GameException e) {
-                    e.printStackTrace();
-                }
+                Move queenMove = new QueenMove(board);
+                queenMove.move(board.getOpponentPlayer(), originCell, destCell);
             }
         } else {
             throw new GameException("Cell does not contains pawn");
