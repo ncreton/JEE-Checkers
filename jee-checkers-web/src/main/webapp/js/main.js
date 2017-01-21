@@ -101,6 +101,12 @@ app.controller('confController', function($scope, $http){
             if(cell.pawn.pawnColor == "BLACK" && cell.pawn.pawnType == "NORMAL"){
                 return {"backgroundColor": "#ff8a65"};
             }
+            if(cell.pawn.pawnColor == "WHITE" && cell.pawn.pawnType == "QUEEN"){
+                return {"backgroundColor": "#4caf50"};
+            }
+            if(cell.pawn.pawnColor == "BLACK" && cell.pawn.pawnType == "QUEEN"){
+                return {"backgroundColor": "#e65100"};
+            }
         }
         else {
             return {"backgroundColor": "none"};
