@@ -1,6 +1,5 @@
 package Helper;
 
-import Game.GameCheckers;
 import Game.GameCheckersImpl;
 import Exception.GameException;
 
@@ -10,11 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.util.Enumeration;
-import java.util.List;
-import java.util.Objects;
 
-import Game.Main;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
@@ -33,20 +28,24 @@ public class GameHelper extends HttpServlet {
 
         switch (gameToken){
             case NEWGAME:
-                gameCheckers = newGame(parameters);
+                try {
+                    gameCheckers = newGame(parameters);
+                    sendResponse(response);
+                } catch (GameException e) {
+                    e.printStackTrace();
+                    sendErrorCode(response, e);
+                }
                 break;
             case PLAY:
                 try {
                     gameCheckers = play(parameters);
+                    sendResponse(response);
                 } catch (GameException e) {
                     e.printStackTrace();
+                    sendErrorCode(response, e);
                 }
                 break;
         }
-
-        String json = new Gson().toJson(gameCheckers);
-        response.setContentType("application/json");
-        response.getWriter().write(json);
     }
 
     private GameToken getTokenFromRequest(JsonObject parameters) throws IOException {
@@ -54,7 +53,7 @@ public class GameHelper extends HttpServlet {
         return token;
     }
 
-    private GameCheckersImpl newGame(JsonObject parameters) throws IOException {
+    private GameCheckersImpl newGame(JsonObject parameters) throws IOException, GameException {
         String player1 = parameters.get("Player1").getAsString();
         String player2 = parameters.get("Player2").getAsString();
         int xCoordinate = parameters.get("xCoordinate").getAsInt();
@@ -96,5 +95,15 @@ public class GameHelper extends HttpServlet {
             return (GameCheckersImpl) session.getAttribute("game");
         }
         return null;
+    }
+
+    private void sendResponse(HttpServletResponse response) throws IOException {
+        String json = new Gson().toJson(gameCheckers);
+        response.setContentType("application/json");
+        response.getWriter().write(json);
+    }
+
+    private void sendErrorCode(HttpServletResponse response, GameException e) throws IOException {
+        response.sendError(500);
     }
 }

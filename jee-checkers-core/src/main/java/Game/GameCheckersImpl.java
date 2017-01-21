@@ -14,16 +14,12 @@ public class GameCheckersImpl implements GameCheckers {
 
     private Board board;
 
-    public GameCheckersImpl() {
+    public GameCheckersImpl() throws GameException {
         this(10, 10, "Player 1", "Player 2");
     }
 
-    public GameCheckersImpl(int rows, int columns, String playerName1, String playerName2) {
-        try {
-            this.board = new Board(rows, columns, playerName1, playerName2);
-        } catch (GameException g) {
-
-        }
+    public GameCheckersImpl(int rows, int columns, String playerName1, String playerName2) throws GameException {
+        this.board = new Board(rows, columns, playerName1, playerName2);
     }
 
     public Board getBoard() {

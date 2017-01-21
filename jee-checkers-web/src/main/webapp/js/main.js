@@ -58,11 +58,11 @@ app.controller('confController', function($scope, $http){
             $scope.originRow = null;
             $scope.originCol = null;
             $scope.board = success.data.board;
-        }),function(error){
-            console.log(error);
+        },function(error){
+            //console.log(error);
             $scope.originRow = null;
             $scope.originCol = null;
-        }
+        })
     }
 
     $scope.resetGame = function() {
