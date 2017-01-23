@@ -59,7 +59,7 @@ public class QueenMove extends Move {
         int destCol = destCell.getColIndex();
         Color color = originCell.getPawn().getPawnColor();
 
-        if(color == Color.BLACK && board.getCurrentPlayer().getColorPlayer() == Color.BLACK || color == Color.WHITE && board.getCurrentPlayer().getColorPlayer() == Color.WHITE  && abs(destRow - originRow) == abs(destCol - originCol)){
+        if(( (color == Color.BLACK && board.getCurrentPlayer().getColorPlayer() == Color.BLACK) || (color == Color.WHITE && board.getCurrentPlayer().getColorPlayer() == Color.WHITE))  && abs(destRow - originRow) == abs(destCol - originCol)){
             return true;
         } else {
             throw new GameException("Movement not authorized");
