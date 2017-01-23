@@ -16,7 +16,7 @@ public class GameCheckersAdapter implements GameCheckers {
     public GameCheckersAdapter(GameCheckersJPA gameCheckersJPA, GameCheckersDAO gameCheckersDAO) throws GameException {
         this.gameCheckersJPA = gameCheckersJPA;
         this.gameCheckersDAO = gameCheckersDAO;
-        this.gameCheckers = new GameCheckersImpl(10, 10, "Player1", "Player2");
+        this.gameCheckers = new GameCheckersImpl();
     }
 
     @Override
