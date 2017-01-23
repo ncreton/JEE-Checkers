@@ -6,5 +6,6 @@ package Helper;
 public enum GameToken {
     NEWGAME,
     PLAY,
-    RESET
+    RESET,
+    RESUME
 }

@@ -20,7 +20,7 @@
         <h1 class="center-align" ng-show="board == undefined">Game Checkers</h1>
 
         <div class="row" ng-show="board == undefined">
-            <form class="col s12 m4 offset-m4" <%--method="post" action="GameHelper"--%> ng-submit="postConfToServer()">
+            <form class="col s12 m4 offset-m4" <%--method="post" action="GameHelper"--%>ng-init = "postResumeGame()" ng-submit="postConfToServer()">
                 <label for="Player1">Player1</label>
                 <input type="text" id="Player1" name="Player1" value="" maxlength="20" data-ng-model="Player1" />
                 <br />

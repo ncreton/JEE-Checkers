@@ -39,6 +39,25 @@ app.controller('confController', function($scope, $http){
 
     };
 
+    $scope.postResumeGame = function() {
+        $http({
+            method : 'POST',
+            url : 'GameHelper',
+            data : {
+                Token : "RESUME",
+            },
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(function(success) {
+            console.log(success);
+            $scope.board = success.data.board;
+        }),function(error) {
+            console.log(error);
+        };
+
+    };
+
     $scope.postPlayToServer = function(destRow, destCol){
         $http({
             method : 'POST',

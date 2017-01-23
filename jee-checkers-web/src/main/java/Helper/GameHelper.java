@@ -45,6 +45,15 @@ public class GameHelper extends HttpServlet {
                     sendErrorCode(response, e);
                 }
                 break;
+            case RESUME:
+                try {
+                    gameCheckers = resumeGame();
+                    sendResponse(response);
+                }catch (GameException g){
+                    g.printStackTrace();
+                    sendErrorCode(response, g);
+                }
+                break;
         }
     }
 
@@ -52,6 +61,16 @@ public class GameHelper extends HttpServlet {
         GameToken token = GameToken.valueOf(parameters.get("Token").getAsString());
         return token;
     }
+
+    private GameCheckersImpl resumeGame() throws GameException{
+        if (getSessionObject() != null) {
+            return gameCheckers = getSessionObject();
+        }else {
+            throw new GameException("Session is empty");
+        }
+    }
+
+    //TODO : Faire une fonction RESET
 
     private GameCheckersImpl newGame(JsonObject parameters) throws IOException, GameException {
         String player1 = parameters.get("Player1").getAsString();
@@ -61,8 +80,7 @@ public class GameHelper extends HttpServlet {
 
         if(!player1.isEmpty() && !player2.isEmpty() && xCoordinate > 0 && yCoordinate > 0){
             gameCheckers = new GameCheckersImpl(yCoordinate,xCoordinate,player1, player2);
-        }
-        else {
+        }else{
             gameCheckers = new GameCheckersImpl(10,10,"Player1", "Player2");
         }
         saveSessionObject();
