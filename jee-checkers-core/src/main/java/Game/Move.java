@@ -143,43 +143,38 @@ public abstract class Move {
 
         //Up diagonal right
         if (queenDirection == QueenDirection.RIGHT_DIAGONAL && destRow < originRow) {
-            for (int row = originRow - 1; row <= destRow; row--) {
+            for (int row = originRow - 1; row > destRow; row--) {
                 col = col + 1;
-                if (board.getCell(row, col).hasPawn()) {
-                    board.getCell(row, col).deletePawn();
-                    board.getOpponentPlayer().loosePoint();
-                }
+                killingMove(row, col);
             }
         }
         //Down diagonal right
         if (queenDirection == QueenDirection.RIGHT_DIAGONAL && destRow > originRow) {
-            for (int row = originRow + 1; row <= destRow; row++) {
+            for (int row = originRow + 1; row < destRow; row++) {
                 col = col - 1;
-                if (board.getCell(row, col).hasPawn()) {
-                    board.getCell(row, col).deletePawn();
-                    board.getOpponentPlayer().loosePoint();
-                }
+                killingMove(row, col);
             }
         }
-        //Up diagonal left
+            //Up diagonal left
         if (queenDirection == QueenDirection.LEFT_DIAGONAL && destRow < originRow) {
-            for (int row = originRow - 1; row <= destRow; row--) {
+            for (int row = originRow - 1; row > destRow; row--) {
                 col = col - 1;
-                if (board.getCell(row, col).hasPawn()) {
-                    board.getCell(row, col).deletePawn();
-                    board.getOpponentPlayer().loosePoint();
-                }
+                killingMove(row, col);
             }
         }
         //Down diagonal left
         if (queenDirection == QueenDirection.LEFT_DIAGONAL && destRow > originRow) {
-            for (int row = originRow + 1; row <= destRow; row++) {
+            for (int row = originRow + 1; row < destRow; row++) {
                 col = col + 1;
-                if (board.getCell(row, col).hasPawn()) {
-                    board.getCell(row, col).deletePawn();
-                    board.getOpponentPlayer().loosePoint();
-                }
+                killingMove(row, col);
             }
+        }
+    }
+
+    protected void killingMove(int row, int col) {
+        if (board.getCell(row, col).hasPawn()) {
+            board.getCell(row, col).deletePawn();
+            board.getOpponentPlayer().loosePoint();
         }
     }
 
