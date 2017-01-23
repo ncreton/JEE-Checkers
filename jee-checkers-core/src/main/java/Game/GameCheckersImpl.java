@@ -30,8 +30,17 @@ public class GameCheckersImpl implements GameCheckers {
     public void play(int originRow, int originCol, int destRow, int destCol) throws GameException {
         if(board.getLastPlayer() != board.getCurrentPlayer()) {
             movePawn(originRow, originCol, destRow, destCol);
+            isWinningPosition();
             board.switchPlayer();
         }
+    }
+
+    private boolean isWinningPosition() {
+        if(board.getOpponentPlayer().getNbPawns() == 0){
+            System.out.println("Game Finished! WIN :D");
+            return true;
+        }
+        return false;
     }
 
     /**
