@@ -31,7 +31,6 @@ public class GameCheckersImpl implements GameCheckers {
         if(board.getLastPlayer() != board.getCurrentPlayer()) {
             movePawn(originRow, originCol, destRow, destCol);
             isWinningPosition();
-            board.switchPlayer();
         }
     }
 
