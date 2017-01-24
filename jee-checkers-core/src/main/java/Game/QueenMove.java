@@ -38,12 +38,14 @@ public class QueenMove extends Move {
                     //Remove opponents pawns
                     removeRangePawns(originCell, destCell, QueenDirection.RIGHT_DIAGONAL);
                     board.swapPawn(originCell, destCell);
+                    board.switchPlayer();
                 }
             } else if (getDiagonalDirection(originRow, originCol, destRow, destCol) == QueenDirection.LEFT_DIAGONAL) {
                 if (isOtherTeamPawns(originCell, destCell, QueenDirection.LEFT_DIAGONAL)) {
                     //Remove opponents pawns
                     removeRangePawns(originCell, destCell, QueenDirection.LEFT_DIAGONAL);
                     board.swapPawn(originCell, destCell);
+                    board.switchPlayer();
                 }
             } else {
                 throw new GameException("Problem moving the queen");

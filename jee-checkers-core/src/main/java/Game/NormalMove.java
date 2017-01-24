@@ -26,6 +26,7 @@ public class NormalMove extends Move {
         if (isMoveAuthorized(originCell, destCell)) {
             takePawnDuringMove(originCell, destCell);
             board.swapPawn(originCell, destCell);
+            board.switchPlayer();
             changePawnToQueen(destCell.getRowIndex(), destCell.getColIndex());
         } else {
             throw new GameException("Movement not authorized");
