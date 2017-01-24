@@ -22,6 +22,7 @@ public class GameCheckersImpl implements GameCheckers {
         this.board = new Board(rows, columns, playerName1, playerName2);
     }
 
+    @Override
     public Board getBoard() {
         return this.board;
     }

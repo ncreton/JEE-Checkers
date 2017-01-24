@@ -17,33 +17,23 @@ public class Turn {
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Long id;
 
-    private int row;
-    private int col;
-    private Color color;
-
     @ManyToOne
     private GameCheckersJPA checkersJPA;
+
+    private int originRow;
+    private int originCol;
+    private int destRow;
+    private int destCol;
 
     public Turn() {
     }
 
-    public Turn(GameCheckersJPA checkersJPA, int row, int col, Color color) {
-        this.row = row;
-        this.col = col;
-        this.color = color;
+    public Turn(GameCheckersJPA checkersJPA, int originRow, int originCol, int destRow, int destCol) {
         this.checkersJPA = checkersJPA;
-    }
-
-    public int getRow() {
-        return row;
-    }
-
-    public int getCol() {
-        return col;
-    }
-
-    public Color getColor() {
-        return color;
+        this.originRow = originRow;
+        this.originCol = originCol;
+        this.destRow = destRow;
+        this.destCol = destCol;
     }
 
     public Long getId() {
@@ -52,5 +42,21 @@ public class Turn {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public int getOriginRow() {
+        return originRow;
+    }
+
+    public int getOriginCol() {
+        return originCol;
+    }
+
+    public int getDestRow() {
+        return destRow;
+    }
+
+    public int getDestCol() {
+        return destCol;
     }
 }

@@ -4,8 +4,10 @@
 import static org.assertj.core.api.Assertions.assertThat;
 
 import javax.inject.Inject;
+import javax.jms.Session;
 import javax.persistence.EntityManager;
 
+import Model.Color;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import guice.GuiceRunner;
@@ -33,7 +35,6 @@ public class CheckersGameDAOTest {
     @Test
     public void isDAOInjected() throws Exception {
         assertThat(checkersDAO).isNotNull();
-
     }
 
     @Test
@@ -47,12 +48,39 @@ public class CheckersGameDAOTest {
 
         checkersAdapter = checkersDAO.loadFromToken(token);
         assertThat(checkersAdapter).isNotNull();
+        entityManager.clear();
+
+    }
+
+    @Test
+    public void itCanCreateACustomGame() throws Exception {
+        GameCheckersAdapter checkersAdapterCustom = checkersDAO.createNewGame(10,10,"Nicolas", "Baptiste");
+        assertThat(checkersAdapterCustom).isNotNull();
+
+        String token = checkersAdapterCustom.getToken();
+        assertThat(token).isNotNull();
+        entityManager.clear();
+
+        checkersAdapterCustom = checkersDAO.loadFromToken(token);
+        assertThat(checkersAdapterCustom).isNotNull();
+        entityManager.clear();
 
     }
 
     @Test
     public void itCanPlayWithAJPAGame() throws Exception {
+        GameCheckersAdapter checkersAdapter = checkersDAO.createNewGame();
+        assertThat(checkersAdapter).isNotNull();
 
+        checkersAdapter.play(6,1,5,2);
+        String token = checkersAdapter.getToken();
 
+        entityManager.clear();
+
+        checkersAdapter = checkersDAO.loadFromToken(token);
+
+        assertThat(checkersAdapter.getBoard().getCell(5,2).getPawn().getPawnColor()).isEqualTo(Color.WHITE);
+
+        entityManager.clear();
     }
 }

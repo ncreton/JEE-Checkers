@@ -22,12 +22,16 @@ public class GameCheckersDAO {
     @Inject
     UserTransaction userTransaction;
 
-    public GameCheckersAdapter createNewGame() throws GameException {
-        GameCheckersJPA checkersJPA = new GameCheckersJPA();
-        checkersJPA.setToken(RandomStringUtils.randomAlphanumeric(10).toLowerCase());
-        saveGame(checkersJPA);
+    public GameCheckersAdapter createNewGame(int row, int col, String player1, String player2) throws GameException {
+        GameCheckersJPA checkersJPACustom = new GameCheckersJPA(row, col, player1, player2);
+        checkersJPACustom.setToken(RandomStringUtils.randomAlphanumeric(10).toLowerCase());
+        saveGame(checkersJPACustom);
 
-        return new GameCheckersAdapter(this, checkersJPA);
+        return new GameCheckersAdapter(this, checkersJPACustom,row, col, player1, player2);
+    }
+
+    public GameCheckersAdapter createNewGame() throws GameException {
+        return this.createNewGame(10,10,"Player 1", "Player 2");
     }
 
     public GameCheckersAdapter loadFromToken(String token) throws GameException {
