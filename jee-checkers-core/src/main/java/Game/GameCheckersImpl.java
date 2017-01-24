@@ -34,12 +34,16 @@ public class GameCheckersImpl implements GameCheckers {
         }
     }
 
-    private boolean isWinningPosition() {
-        if(board.getOpponentPlayer().getNbPawns() == 0){
-            System.out.println("Game Finished! WIN :D");
-            return true;
+    private void isWinningPosition() {
+        if(board.getCurrentPlayer().getNbPawns() == 0){
+            endedGame();
         }
-        return false;
+    }
+
+    private void endedGame() {
+        //TODO: Java: Make a post with ENDGAME
+        //TODO : Angular: Don't display "Current player" but rather something like this "Game finished. Team has won!"
+        System.out.println("Game finished! " + board.getOpponentPlayer().getName() + " has won!");
     }
 
     /**

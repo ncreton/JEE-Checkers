@@ -143,7 +143,9 @@ public class Board {
 
     public void switchPlayer() {
         this.lastPlayer = this.currentPlayer;
-        this.currentPlayer = (this.currentPlayer == this.playerWhite) ? this.playerBlack : this.playerWhite;
+        if(this.currentPlayer.getNbPawns() != 0){
+            this.currentPlayer = (this.currentPlayer == this.playerWhite) ? this.playerBlack : this.playerWhite;
+        }
     }
 
     public Player getCurrentPlayer() {
