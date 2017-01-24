@@ -35,4 +35,24 @@ public class CheckersGameDAOTest {
         assertThat(checkersDAO).isNotNull();
 
     }
+
+    @Test
+    public void itCanCreateAJPAGame() throws Exception {
+        GameCheckersAdapter checkersAdapter = checkersDAO.createNewGame();
+        assertThat(checkersAdapter).isNotNull();
+
+        String token = checkersAdapter.getToken();
+        assertThat(token).isNotNull();
+        entityManager.clear();
+
+        checkersAdapter = checkersDAO.loadFromToken(token);
+        assertThat(checkersAdapter).isNotNull();
+
+    }
+
+    @Test
+    public void itCanPlayWithAJPAGame() throws Exception {
+
+
+    }
 }
