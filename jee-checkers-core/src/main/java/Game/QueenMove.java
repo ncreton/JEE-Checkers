@@ -34,20 +34,23 @@ public class QueenMove extends Move {
 
         if (isMoveAuthorized(originCell, destCell)) {
             if (getDiagonalDirection(originRow, originCol, destRow, destCol) == QueenDirection.RIGHT_DIAGONAL) {
-                if (!isSimpleQueenMove(originRow, destRow, originCol, destCol) && isOtherTeamPawns(originCell, destCell, QueenDirection.RIGHT_DIAGONAL)) {
+                if (!isSimpleQueenMove(originCell, destCell) && isOtherTeamPawns(originCell, destCell, QueenDirection.RIGHT_DIAGONAL)) {
                     //Remove opponents pawns
                     removeRangePawns(originCell, destCell, QueenDirection.RIGHT_DIAGONAL);
+                    board.swapPawn(originCell, destCell);
+                    board.switchPlayer();
                 }
             } else if (getDiagonalDirection(originRow, originCol, destRow, destCol) == QueenDirection.LEFT_DIAGONAL) {
-                if (!isSimpleQueenMove(originRow, destRow, originCol, destCol) && isOtherTeamPawns(originCell, destCell, QueenDirection.LEFT_DIAGONAL)) {
+                if (!isSimpleQueenMove(originCell, destCell) && isOtherTeamPawns(originCell, destCell, QueenDirection.LEFT_DIAGONAL)) {
                     //Remove opponents pawns
                     removeRangePawns(originCell, destCell, QueenDirection.LEFT_DIAGONAL);
+                    board.swapPawn(originCell, destCell);
+                    board.switchPlayer();
                 }
             } else {
                 throw new GameException("Problem moving the queen");
             }
-            board.swapPawn(originCell, destCell);
-            board.switchPlayer();
+
         }
     }
 
@@ -87,8 +90,15 @@ public class QueenMove extends Move {
         return queenDirection;
     }
 
-    private boolean isSimpleQueenMove(int originRow, int destRow, int originCol, int destCol) {
+    private boolean isSimpleQueenMove(Cell originCell, Cell destCell) {
+        int originRow = originCell.getRowIndex();
+        int originCol = originCell.getColIndex();
+        int destRow = destCell.getRowIndex();
+        int destCol = destCell.getColIndex();
+
         if(destRow == originRow + 1 && (destCol == originCol - 1 || destCol == originCol + 1) || destRow == originRow - 1 && (destCol == originCol - 1 || destCol == originCol + 1)){
+            board.swapPawn(originCell, destCell);
+            board.switchPlayer();
             return true;
         }
         return false;
