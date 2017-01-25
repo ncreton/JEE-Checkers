@@ -48,9 +48,17 @@ public class GameCheckersDAO {
             userTransaction.begin();
             entityManager.persist(checkersJPA);
             userTransaction.commit();
-        }catch (NotSupportedException | SystemException | SecurityException
-                | IllegalStateException | RollbackException
-                | HeuristicMixedException | HeuristicRollbackException e){
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    public void deleteGame(GameCheckersJPA checkersJPA){
+        try{
+            userTransaction.begin();
+            entityManager.remove(checkersJPA);
+            userTransaction.commit();
+        }catch (Exception e){
             e.printStackTrace();
         }
     }

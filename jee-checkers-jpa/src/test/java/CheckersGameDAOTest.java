@@ -7,6 +7,7 @@ import javax.inject.Inject;
 import javax.jms.Session;
 import javax.persistence.EntityManager;
 
+import Game.GameCheckers;
 import Model.Color;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
@@ -54,7 +55,7 @@ public class CheckersGameDAOTest {
 
     @Test
     public void itCanCreateACustomGame() throws Exception {
-        GameCheckersAdapter checkersAdapterCustom = checkersDAO.createNewGame(10,10,"Nicolas", "Baptiste");
+        GameCheckersAdapter checkersAdapterCustom = checkersDAO.createNewGame(8,8,"Nicolas", "Baptiste");
         assertThat(checkersAdapterCustom).isNotNull();
 
         String token = checkersAdapterCustom.getToken();
@@ -74,13 +75,32 @@ public class CheckersGameDAOTest {
 
         checkersAdapter.play(6,1,5,2);
         String token = checkersAdapter.getToken();
-
         entityManager.clear();
 
         checkersAdapter = checkersDAO.loadFromToken(token);
-
         assertThat(checkersAdapter.getBoard().getCell(5,2).getPawn().getPawnColor()).isEqualTo(Color.WHITE);
-
         entityManager.clear();
+    }
+
+    @Test
+    public void itCanDeleteAGame() throws Exception {
+        GameCheckersAdapter checkersAdapter = checkersDAO.createNewGame(10, 10, "Jean", "Mich");
+        assertThat(checkersAdapter).isNotNull();
+
+        String token = checkersAdapter.getToken();
+        assertThat(token).isNotNull();
+        entityManager.clear();
+
+        checkersAdapter = checkersDAO.loadFromToken(token);
+        checkersAdapter.delete();
+        entityManager.clear();
+
+        GameCheckersAdapter checkersAdapterNull = null;
+        try {
+            checkersAdapterNull = checkersDAO.loadFromToken(token);
+        } catch (Exception e) {
+            assertThat(checkersAdapterNull).isNull();
+        }
+
     }
 }

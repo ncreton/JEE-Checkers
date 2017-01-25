@@ -44,4 +44,8 @@ public class GameCheckersAdapter implements GameCheckers {
     public Board getBoard(){
         return gameCheckersCore.getBoard();
     }
+
+    public void delete(){
+        checkersDAO.deleteGame(this.gameCheckersJPA);
+    }
 }
