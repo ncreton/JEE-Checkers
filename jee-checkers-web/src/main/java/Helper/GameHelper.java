@@ -73,15 +73,19 @@ public class GameHelper extends HttpServlet {
     //TODO : Faire une fonction RESET
 
     private GameCheckersImpl newGame(JsonObject parameters) throws IOException, GameException {
-        String player1 = parameters.get("Player1").getAsString();
-        String player2 = parameters.get("Player2").getAsString();
-        int xCoordinate = parameters.get("xCoordinate").getAsInt();
-        int yCoordinate = parameters.get("yCoordinate").getAsInt();
+        String player1 = "Player1";
+        String player2 = "Player2";
 
-        if(!player1.isEmpty() && !player2.isEmpty() && xCoordinate > 0 && yCoordinate > 0){
-            gameCheckers = new GameCheckersImpl(yCoordinate,xCoordinate,player1, player2);
-        }else{
-            gameCheckers = new GameCheckersImpl(10,10,"Player1", "Player2");
+        if(parameters.get("Player1") != null &&  parameters.get("Player2") != null){
+            player1 = parameters.get("Player1").getAsString();
+            player2 = parameters.get("Player2").getAsString();
+        }
+
+        int xCoordinate = 10;
+        int yCoordinate = 10;
+
+        if(!player1.isEmpty() && !player2.isEmpty() && xCoordinate > 0 && yCoordinate > 0) {
+            gameCheckers = new GameCheckersImpl(yCoordinate, xCoordinate, player1, player2);
         }
         saveSessionObject();
         return gameCheckers;

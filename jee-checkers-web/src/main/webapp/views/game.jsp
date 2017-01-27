@@ -29,13 +29,6 @@
                 <input type="text" id="Player2" name="Player2" value="" maxlength="20" data-ng-model="Player2"/>
                 <br />
 
-                <label for="yCoordinate">Board lines</label>
-                <input type="number" id="yCoordinate" name="yCoordinate" value="" min="10" step="1" data-ng-model="yCoordinate"/>
-                <br />
-
-                <label for="xCoordinate">Board columns</label>
-                <input type="number" id="xCoordinate" name="xCoordinate" value="" min="10" step="1" data-ng-model="xCoordinate"/>
-
                 <button class="btn waves-effect waves-light col s12 m6 offset-m3" type="submit" name="action">Play
                     <i class="material-icons right">send</i>
                 </button>

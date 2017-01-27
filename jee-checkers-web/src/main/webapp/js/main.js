@@ -23,9 +23,7 @@ app.controller('confController', function($scope, $http){
             data : {
                 Token : "NEWGAME",
                 Player1 : $scope.Player1,
-                Player2 : $scope.Player2,
-                xCoordinate : $scope.xCoordinate,
-                yCoordinate : $scope.yCoordinate
+                Player2 : $scope.Player2
             },
             headers: {
                 'Content-Type': 'application/json'
