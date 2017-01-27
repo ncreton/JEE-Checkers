@@ -39,7 +39,7 @@ public class GameCheckersImpl implements GameCheckers {
 
     private void isWinningPosition() {
         if(board.getCurrentPlayer().getNbPawns() == 0){
-            board.getCurrentPlayer().setWinner(true);
+            board.getOpponentPlayer().setWinner(true);
         }
     }
 
