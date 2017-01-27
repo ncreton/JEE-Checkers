@@ -37,6 +37,25 @@ app.controller('confController', function($scope, $http){
 
     };
 
+    $scope.postResetGame = function() {
+        $http({
+            method : 'POST',
+            url : 'GameHelper',
+            data : {
+                Token : "RESET",
+            },
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(function(success) {
+            console.log(success);
+            $scope.board = success.data.board;
+        }),function(error) {
+            console.log(error);
+        };
+
+    };
+
     $scope.postResumeGame = function() {
         $http({
             method : 'POST',
