@@ -19,6 +19,7 @@
     <body ng-app="AppChecker" ng-controller="confController">
         <h1 class="center-align" ng-show="board == undefined">Game Checkers</h1>
 
+        <h5 class="center-align marginTop" ng-show="board == undefined">New game</h5>
         <div class="row" ng-show="board == undefined">
             <form class="col s12 m4 offset-m4" <%--method="post" action="GameHelper"--%>ng-init = "postResumeGame()" ng-submit="postConfToServer()">
                 <label for="Player1">Player1</label>
@@ -29,11 +30,26 @@
                 <input type="text" id="Player2" name="Player2" value="" maxlength="20" data-ng-model="Player2"/>
                 <br />
 
-                <button class="btn waves-effect waves-light col s12 m6 offset-m3" type="submit" name="action">Play
-                    <i class="material-icons right">send</i>
+                <button class="btn green waves-effect waves-light col s12 m6 offset-m3" type="submit" name="action">Play
+                    <i class="material-icons right">play_arrow</i>
                 </button>
             </form>
         </div>
+        <div class="divider" ng-show="board == undefined"></div>
+
+        <h5 class="center-align marginTop" ng-show="board == undefined">Continue my game</h5>
+        <div class="row" ng-show="board == undefined">
+            <form class="col s12 m4 offset-m4">
+                <label for="token">Token</label>
+                <input type="text" id="token" name="token" value="" maxlength="20" data-ng-model="token" />
+                <br />
+
+                <button class="btn orange lighten-1 waves-effect waves-light col s12 m6 offset-m3" type="submit" name="action">Continue
+                    <i class="material-icons right">hourglass_empty</i>
+                </button>
+            </form>
+        </div>
+
 
         <div class="row" ng-show="board != undefined">
             <div class="col s12 m4">
