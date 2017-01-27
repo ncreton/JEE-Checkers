@@ -9,11 +9,13 @@ public class Player {
     private String name;
     private Color colorPlayer;
     private int nbPawns;
+    private boolean isWinner;
 
     public Player(String name, Color colorPlayer, int nbPawns) {
         this.name = name;
         this.colorPlayer = colorPlayer;
         this.nbPawns = nbPawns;
+        this.isWinner = false;
     }
 
     public String getName() {
@@ -30,5 +32,13 @@ public class Player {
 
     public void loosePoint() {
         this.nbPawns--;
+    }
+
+    public boolean isWinner() {
+        return isWinner;
+    }
+
+    public void setWinner(boolean winner) {
+        isWinner = winner;
     }
 }

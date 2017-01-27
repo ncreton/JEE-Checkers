@@ -173,4 +173,12 @@ public class Board {
         }
         return null;
     }
+
+    public boolean hasWinner(){
+        if (playerWhite.isWinner() || playerBlack.isWinner()){
+            return true;
+        }else {
+            return false;
+        }
+    }
 }

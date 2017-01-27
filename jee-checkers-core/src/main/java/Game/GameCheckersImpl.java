@@ -29,22 +29,18 @@ public class GameCheckersImpl implements GameCheckers {
 
     @Override
     public void play(int originRow, int originCol, int destRow, int destCol) throws GameException {
-        if(board.getLastPlayer() != board.getCurrentPlayer()) {
+        if(board.getLastPlayer() != board.getCurrentPlayer() && !board.hasWinner()) {
             movePawn(originRow, originCol, destRow, destCol);
             isWinningPosition();
+        }else {
+            throw new GameException("Game is finished");
         }
     }
 
     private void isWinningPosition() {
         if(board.getCurrentPlayer().getNbPawns() == 0){
-            endedGame();
+            board.getCurrentPlayer().setWinner(true);
         }
-    }
-
-    private void endedGame() {
-        //TODO: Java: Make a post with ENDGAME
-        //TODO : Angular: Don't display "Current player" but rather something like this "Game finished. Team has won!"
-        System.out.println("Game finished! " + board.getOpponentPlayer().getName() + " has won!");
     }
 
     /**

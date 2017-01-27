@@ -38,9 +38,9 @@ public class GameWebPageTest {
         driver.quit();
     }
 
-    @Test
-    public void itCanAccessThePage() throws Exception {
-
-
-    }
+//    @Test
+//    public void itCanAccessThePage() throws Exception {
+//
+//
+//    }
 }
