@@ -100,8 +100,8 @@
         <!-- Modal Structure -->
         <div id="modal1" class="modal">
             <div class="modal-content">
-                <h4>Game finished</h4>
-                <p>{{winner}} has won!</p>
+                <h1 class="center-align">Game finished</h1>
+                <h4 class="center-align">{{winner}} has won!</h4>
             </div>
             <div class="modal-footer">
                 <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Close</a>

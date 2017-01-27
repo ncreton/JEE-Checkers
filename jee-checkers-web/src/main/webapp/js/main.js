@@ -172,9 +172,6 @@ app.controller('confController', function($scope, $http){
     $scope.isGameFinished = function(){
         $scope.winner = null;
         if($scope.board != null){
-            console.log("Black" + $scope.board.playerBlack.isWinner);
-            console.log("White" + $scope.board.playerWhite.isWinner);
-
             if($scope.board.playerWhite.isWinner == true){
                 $scope.winner = $scope.board.playerWhite.name;
                 $('#modal1').modal('open');
