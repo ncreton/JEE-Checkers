@@ -81,7 +81,7 @@
         </div>
 
         <div class="row center-align" ng-show="board != undefined">
-            <span><button class="btn waves-effect waves-light" ng-click="resetGame()">Reset</button></span>
+            <span><button class="btn waves-effect waves-light" ng-click="resetGame()">Exit</button></span>
         </div>
 
         <div id="gameContainer" class="row center-align" ng-show="board != undefined">
@@ -96,6 +96,16 @@
             </div>
         </div>
 
+        <!-- Modal Structure -->
+        <div id="modal1" class="modal">
+            <div class="modal-content">
+                <h4>Game finished</h4>
+                <p>{{winner}} has won!</p>
+            </div>
+            <div class="modal-footer">
+                <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Close</a>
+            </div>
+        </div>
 
 
         <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
