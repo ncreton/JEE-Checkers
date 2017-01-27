@@ -54,6 +54,14 @@ public class GameHelper extends HttpServlet {
                     sendErrorCode(response, g);
                 }
                 break;
+            case RESET:
+                try{
+                    resetGame();
+                    //sendResponse(response);
+                } catch (GameException e) {
+                    e.printStackTrace();
+                    sendErrorCode(response, e);
+                }
         }
     }
 
@@ -70,7 +78,9 @@ public class GameHelper extends HttpServlet {
         }
     }
 
-    //TODO : Faire une fonction RESET
+    private void resetGame() throws GameException {
+        deleteSessionObject();
+    }
 
     private GameCheckersImpl newGame(JsonObject parameters) throws IOException, GameException {
         String player1 = "Player1";
@@ -110,6 +120,10 @@ public class GameHelper extends HttpServlet {
 
     private void saveSessionObject(){
         session.setAttribute("game", gameCheckers);
+    }
+
+    private void deleteSessionObject(){
+        session.setAttribute("game", null);
     }
 
     private GameCheckersImpl getSessionObject(){
