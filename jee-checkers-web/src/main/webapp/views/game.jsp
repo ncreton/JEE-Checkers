@@ -81,8 +81,7 @@
         </div>
 
         <div class="row center-align" ng-show="board != undefined">
-            <span><button class="btn waves-effect waves-light" ng-click="resetGame()">Exit</button></span>
-            <span><button class="btn waves-effect waves-light" ng-click="postResetGame()">Reset</button></span>
+            <span><button class="btn waves-effect waves-light" ng-click="postResetGame()">Exit</button></span>
         </div>
 
         <div id="gameContainer" class="row center-align" ng-show="board != undefined">
