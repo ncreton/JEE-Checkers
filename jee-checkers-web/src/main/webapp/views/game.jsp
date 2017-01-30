@@ -39,7 +39,7 @@
 
         <h5 class="center-align marginTop" ng-show="board == undefined">Continue my game</h5>
         <div class="row" ng-show="board == undefined">
-            <form class="col s12 m4 offset-m4">
+            <form class="col s12 m4 offset-m4" ng-submit="postResumeGameWithToken()">
                 <label for="token">Game ID</label>
                 <input type="text" id="token" name="token" value="" maxlength="20" data-ng-model="token" />
                 <br />

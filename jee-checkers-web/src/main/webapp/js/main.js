@@ -10,8 +10,6 @@ var app = angular.module('AppChecker', []);
 
 
 app.controller('mainController', function($scope, $http){
-    $scope.gameId = "123454dfg";
-
     $scope.range = function(min, max, step) {
         step = step || 1;
         var input = [];
@@ -47,7 +45,7 @@ app.controller('mainController', function($scope, $http){
             method : 'POST',
             url : 'GameHelper',
             data : {
-                Token : "RESET",
+                Token : "RESET"
             },
             headers: {
                 'Content-Type': 'application/json'
@@ -66,7 +64,7 @@ app.controller('mainController', function($scope, $http){
             method : 'POST',
             url : 'GameHelper',
             data : {
-                Token : "RESUME",
+                Token : "RESUME"
             },
             headers: {
                 'Content-Type': 'application/json'
@@ -77,7 +75,27 @@ app.controller('mainController', function($scope, $http){
         }),function(error) {
             console.log(error);
         };
+    };
 
+    $scope.gameId = "123454dfg";
+
+    $scope.postResumeGameWithToken = function() {
+        $http({
+            method : 'POST',
+            url : 'GameHelper',
+            data : {
+                Token : "RESUME_TOKEN",
+                GameId : $scope.gameId
+            },
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(function(success) {
+            console.log(success);
+            $scope.board = success.data.board;
+        }),function(error) {
+            console.log(error);
+        };
     };
 
     $scope.postPlayToServer = function(destRow, destCol){

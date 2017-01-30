@@ -7,5 +7,6 @@ public enum GameToken {
     NEWGAME,
     PLAY,
     RESET,
-    RESUME
+    RESUME,
+    RESUME_TOKEN
 }
