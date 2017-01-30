@@ -8,7 +8,9 @@ $(document).ready(function(){
 
 var app = angular.module('AppChecker', []);
 
-app.controller('mainCtrl', function ($scope) {
+
+app.controller('mainController', function($scope, $http){
+    $scope.gameId = "123454dfg";
 
     $scope.range = function(min, max, step) {
         step = step || 1;
@@ -18,9 +20,7 @@ app.controller('mainCtrl', function ($scope) {
         }
         return input;
     };
-});
 
-app.controller('confController', function($scope, $http){
     $scope.postConfToServer = function() {
         $http({
             method : 'POST',
@@ -123,7 +123,6 @@ app.controller('confController', function($scope, $http){
         }
     };
 
-    //TODO: Pawns for queens
     $scope.setStyling = function(rowIndex, colIndex) {
         var cell = $scope.board.cells[rowIndex][colIndex];
         //console.log(cell.pawn);

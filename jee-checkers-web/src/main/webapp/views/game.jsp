@@ -16,7 +16,7 @@
         <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     </head>
 
-    <body ng-app="AppChecker" ng-controller="confController">
+    <body ng-app="AppChecker" ng-controller="mainController">
         <h1 class="center-align" ng-show="board == undefined">Game Checkers</h1>
 
         <h5 class="center-align marginTop" ng-show="board == undefined">New game</h5>
@@ -40,7 +40,7 @@
         <h5 class="center-align marginTop" ng-show="board == undefined">Continue my game</h5>
         <div class="row" ng-show="board == undefined">
             <form class="col s12 m4 offset-m4">
-                <label for="token">Token</label>
+                <label for="token">Game ID</label>
                 <input type="text" id="token" name="token" value="" maxlength="20" data-ng-model="token" />
                 <br />
 
@@ -63,9 +63,10 @@
 
             <div class="col s12 m4">
                 <div class="card white">
-                    <div class="card-content center-align">
-                        <span class="card-title">Current player</span>
-                        <p>{{board.currentPlayer.name}}</p>
+                    <div class="card-content">
+                        <span class="new badge blue" data-badge-caption={{gameId}}>Game ID:</span>
+                        <p class="card-title">Current player</p>
+                        <span>{{board.currentPlayer.name}}</span>
                     </div>
                 </div>
             </div>
@@ -80,12 +81,12 @@
             </div>
         </div>
 
-        <div class="row center-align" ng-show="board != undefined">
-            <span><button class="btn waves-effect waves-light" ng-click="postResetGame()">Exit</button></span>
+        <div class="row removeSpace center-align">
+            <button class="btn waves-effect waves-light" ng-show="board != undefined" ng-click="postResetGame()">Exit</button>
         </div>
 
         <div id="gameContainer" class="row center-align" ng-show="board != undefined">
-            <div ng-controller="mainCtrl" class="removeSpace">
+            <div class="removeSpace">
                 <div ng-init="rowIndex = $index" ng-repeat="row in range(0,board.nbRows - 1)" style="width:100%">
                     <div ng-repeat="col in range(0,board.nbCols - 1)" class="gameCell" ng-style="setCellColor(rowIndex,$index)" ng-click="play(rowIndex,$index)">
                         <div ng-style="setStyling(rowIndex,$index)" class="circle">
