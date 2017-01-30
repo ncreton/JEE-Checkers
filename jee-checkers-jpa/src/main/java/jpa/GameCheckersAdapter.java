@@ -50,4 +50,8 @@ public class GameCheckersAdapter implements GameCheckers {
     public void delete(){
         checkersDAO.deleteGame(this.gameCheckersJPA);
     }
+
+    public GameCheckersImpl getGameCheckersCore() {
+        return gameCheckersCore;
+    }
 }

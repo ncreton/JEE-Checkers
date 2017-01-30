@@ -1,5 +1,6 @@
 package Helper;
 
+import Game.GameCheckersImpl;
 import jpa.GameCheckersAdapter;
 import jpa.GameCheckersDAO;
 import Exception.*;
@@ -15,7 +16,7 @@ import javax.inject.Named;
 /**
  * Created by nicolas on 30/01/2017.
  */
-@Named("game")
+@Named("gameCheckersJPA")
 @RequestScoped
 public class GameCheckersBean implements Serializable{
 
@@ -36,11 +37,19 @@ public class GameCheckersBean implements Serializable{
         checkersAdapter = checkersDAO.createNewGame();
     }
 
+    public void createNewGame(int row, int col, String player1, String player2) throws GameException {
+        checkersAdapter = checkersDAO.createNewGame(row, col, player1, player2);
+    }
+
     public String getToken(){
         return checkersAdapter.getToken();
     }
 
     public void loadFromToken(String token) throws GameException {
         checkersAdapter = checkersDAO.loadFromToken(token);
+    }
+
+    public GameCheckersImpl getGameChecker(){
+        return checkersAdapter.getGameCheckersCore();
     }
 }

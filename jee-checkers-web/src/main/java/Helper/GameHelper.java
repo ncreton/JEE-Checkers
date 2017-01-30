@@ -3,6 +3,7 @@ package Helper;
 import Game.GameCheckersImpl;
 import Exception.GameException;
 
+import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -20,6 +21,9 @@ public class GameHelper extends HttpServlet {
     private static GameCheckersImpl gameCheckers;
     private static HttpSession session;
 
+    @Inject
+    GameCheckersBean checkersBean;
+
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
 
         JsonObject parameters = new Gson().fromJson(request.getReader(), JsonObject.class);
@@ -31,9 +35,8 @@ public class GameHelper extends HttpServlet {
                 try {
                     gameCheckers = newGame(parameters);
                     sendResponse(response);
-                } catch (GameException e) {
-                    e.printStackTrace();
-                    sendErrorCode(response, e);
+                } catch (GameException gameException) {
+                    gameException.printStackTrace();
                 }
                 break;
             case PLAY:
@@ -62,12 +65,26 @@ public class GameHelper extends HttpServlet {
                     e.printStackTrace();
                     sendErrorCode(response, e);
                 }
+            case RESUME_TOKEN:
+                try {
+                    String tokenResume = getTokenResume(parameters);
+                    checkersBean.loadFromToken(tokenResume);
+                } catch (GameException e) {
+                    e.printStackTrace();
+                }
+                checkersBean.getGameChecker();
+
         }
     }
 
     private GameToken getTokenFromRequest(JsonObject parameters) throws IOException {
         GameToken token = GameToken.valueOf(parameters.get("Token").getAsString());
         return token;
+    }
+
+    private String getTokenResume(JsonObject parameters){
+        String tokenResume = parameters.get("GameId").getAsString();
+        return tokenResume;
     }
 
     private GameCheckersImpl resumeGame() throws GameException{
@@ -95,10 +112,11 @@ public class GameHelper extends HttpServlet {
         int yCoordinate = 10;
 
         if(!player1.isEmpty() && !player2.isEmpty() && xCoordinate > 0 && yCoordinate > 0) {
-            gameCheckers = new GameCheckersImpl(yCoordinate, xCoordinate, player1, player2);
+            //gameCheckers = new GameCheckersImpl(yCoordinate, xCoordinate, player1, player2);
+            checkersBean.createNewGame(yCoordinate, xCoordinate, player1, player2);
         }
         saveSessionObject();
-        return gameCheckers;
+        return checkersBean.checkersAdapter.getGameCheckersCore();
     }
 
     private GameCheckersImpl play(JsonObject parameters) throws IOException, GameException {
@@ -108,7 +126,8 @@ public class GameHelper extends HttpServlet {
             int originCol = parameters.get("originCol").getAsInt();
             int destRow = parameters.get("destRow").getAsInt();
             int destCol = parameters.get("destCol").getAsInt();
-            gameCheckers.play(originRow, originCol, destRow, destCol);
+            //gameCheckers.play(originRow, originCol, destRow, destCol);
+            checkersBean.play(originRow, originCol, destRow, destCol);
             saveSessionObject();
             return gameCheckers;
         }else{
