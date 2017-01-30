@@ -4,16 +4,16 @@
 import static org.assertj.core.api.Assertions.assertThat;
 
 import javax.inject.Inject;
-import javax.jms.Session;
 import javax.persistence.EntityManager;
 
-import Game.GameCheckers;
 import Model.Color;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import guice.GuiceRunner;
 import guice.H2DBModule;
 import guice.Modules;
+import jpa.GameCheckersAdapter;
+import jpa.GameCheckersDAO;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 

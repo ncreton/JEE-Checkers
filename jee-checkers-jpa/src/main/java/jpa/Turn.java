@@ -1,8 +1,6 @@
-/**
+package jpa; /**
  * Created by nicolas on 23/01/2017.
  */
-
-import Model.Color;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

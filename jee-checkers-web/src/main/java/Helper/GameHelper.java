@@ -142,4 +142,5 @@ public class GameHelper extends HttpServlet {
     private void sendErrorCode(HttpServletResponse response, GameException e) throws IOException {
         response.sendError(500);
     }
+
 }

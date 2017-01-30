@@ -1,3 +1,5 @@
+package jpa;
+
 import Game.GameCheckers;
 import Exception.*;
 import Game.GameCheckersImpl;
