@@ -64,7 +64,7 @@
             <div class="col s12 m4">
                 <div class="card white">
                     <div class="card-content">
-                        <span class="new badge blue" data-badge-caption={{gameId}}>Game ID:</span>
+                        <span class="new badge blue" data-badge-caption=" ">Game ID: {{gameId}}</span>
                         <p class="card-title">Current player</p>
                         <span>{{board.currentPlayer.name}}</span>
                     </div>
