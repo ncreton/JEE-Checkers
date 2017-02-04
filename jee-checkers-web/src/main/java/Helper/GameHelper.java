@@ -30,8 +30,8 @@ public class GameHelper extends HttpServlet {
         if (tokenResume != null){
             try {
                 checkersBean.loadFromToken(tokenResume);
-            } catch (GameException e) {
-                e.printStackTrace();
+            } catch (Exception e) {
+                //e.printStackTrace();
             }
         }
 
@@ -58,7 +58,7 @@ public class GameHelper extends HttpServlet {
                 break;
             case RESET:
                 try{
-                    resetGame();
+                    resetGame(tokenResume);
                 } catch (GameException e) {
                     e.printStackTrace();
                     sendErrorCode(response, e);
@@ -80,8 +80,8 @@ public class GameHelper extends HttpServlet {
         }
     }
 
-    private void resetGame() throws GameException {
-        //deleteSessionObject();
+    private void resetGame(String token) throws GameException {
+        //checkersBean.deleteFromToken(token);
     }
 
     private void newGame(JsonObject parameters) throws IOException, GameException {

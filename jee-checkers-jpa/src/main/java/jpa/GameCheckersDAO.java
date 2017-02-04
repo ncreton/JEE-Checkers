@@ -65,4 +65,13 @@ public class GameCheckersDAO {
             e.printStackTrace();
         }
     }
+
+    public void deleteFromToken(String token){
+        GameCheckersJPA checkersJPA = (GameCheckersJPA) entityManager
+                .createQuery("SELECT g FROM Game g WHERE g.token = :token")
+                .setParameter("token", token)
+                .getSingleResult();
+
+        deleteGame(checkersJPA);
+    }
 }

@@ -8,7 +8,6 @@ $(document).ready(function(){
 
 var app = angular.module('AppChecker', []);
 
-
 app.controller('mainController', function($scope, $http){
     $scope.range = function(min, max, step) {
         step = step || 1;
@@ -39,7 +38,6 @@ app.controller('mainController', function($scope, $http){
         }),function(error) {
             console.log(error);
         };
-
     };
 
     $scope.postResetGame = function() {
@@ -47,7 +45,8 @@ app.controller('mainController', function($scope, $http){
             method : 'POST',
             url : 'GameHelper',
             data : {
-                Token : "RESET"
+                Token : "RESET",
+                GameId : $scope.gameId
             },
             headers: {
                 'Content-Type': 'application/json'
@@ -55,6 +54,8 @@ app.controller('mainController', function($scope, $http){
         }).then(function(success) {
             console.log(success);
             $scope.board = success.data.board;
+            $scope.gameId = null;
+            $scope.emptyLocalToken();
         }),function(error) {
             console.log(error);
         };
@@ -195,7 +196,8 @@ app.controller('mainController', function($scope, $http){
         return localStorage.getItem("tokenGame");
     }
 
+    $scope.emptyLocalToken = function(){
+        localStorage.removeItem("tokenGame");
+    }
+
 });
-
-
-

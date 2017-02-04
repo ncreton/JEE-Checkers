@@ -47,6 +47,10 @@ public class GameCheckersBean implements Serializable{
         checkersAdapter.getGameCheckersCore().setTokenGame(checkersAdapter.getToken());
     }
 
+    public void deleteFromToken(String token) throws GameException{
+        checkersDAO.deleteFromToken(token);
+    }
+
     public GameCheckersAdapter getCheckersAdapter() {
         return checkersAdapter;
     }
