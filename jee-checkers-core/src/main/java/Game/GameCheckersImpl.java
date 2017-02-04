@@ -14,6 +14,8 @@ public class GameCheckersImpl implements GameCheckers {
 
     private Board board;
 
+    private String tokenGame;
+
     public GameCheckersImpl() throws GameException {
         this(10, 10, "Player 1", "Player 2");
     }
@@ -76,5 +78,13 @@ public class GameCheckersImpl implements GameCheckers {
         } else {
             throw new GameException("Cell does not contains pawn");
         }
+    }
+
+    public String getTokenGame() {
+        return tokenGame;
+    }
+
+    public void setTokenGame(String tokenGame) {
+        this.tokenGame = tokenGame;
     }
 }

@@ -16,7 +16,7 @@ import javax.inject.Named;
 /**
  * Created by nicolas on 30/01/2017.
  */
-@Named("gameCheckersJPA")
+@Named("game")
 @RequestScoped
 public class GameCheckersBean implements Serializable{
 
@@ -29,16 +29,13 @@ public class GameCheckersBean implements Serializable{
         checkersAdapter.play(originRow, originCol, destRow, destCol);
     }
 
-    public GameCheckersAdapter getCheckersAdapter() {
-        return checkersAdapter;
-    }
-
     public void createNewGame() throws GameException {
         checkersAdapter = checkersDAO.createNewGame();
     }
 
     public void createNewGame(int row, int col, String player1, String player2) throws GameException {
         checkersAdapter = checkersDAO.createNewGame(row, col, player1, player2);
+        checkersAdapter.getGameCheckersCore().setTokenGame(checkersAdapter.getToken());
     }
 
     public String getToken(){
@@ -47,9 +44,22 @@ public class GameCheckersBean implements Serializable{
 
     public void loadFromToken(String token) throws GameException {
         checkersAdapter = checkersDAO.loadFromToken(token);
+        checkersAdapter.getGameCheckersCore().setTokenGame(checkersAdapter.getToken());
     }
 
-    public GameCheckersImpl getGameChecker(){
-        return checkersAdapter.getGameCheckersCore();
+    public GameCheckersAdapter getCheckersAdapter() {
+        return checkersAdapter;
+    }
+
+    public void setCheckersAdapter(GameCheckersAdapter checkersAdapter) {
+        this.checkersAdapter = checkersAdapter;
+    }
+
+    public GameCheckersDAO getCheckersDAO() {
+        return checkersDAO;
+    }
+
+    public void setCheckersDAO(GameCheckersDAO checkersDAO) {
+        this.checkersDAO = checkersDAO;
     }
 }

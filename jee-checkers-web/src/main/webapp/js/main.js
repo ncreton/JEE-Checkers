@@ -34,6 +34,8 @@ app.controller('mainController', function($scope, $http){
         }).then(function(success) {
             console.log(success);
             $scope.board = success.data.board;
+            $scope.gameId = success.data.tokenGame;
+            $scope.saveTokenToLocalStorage(success.data.tokenGame);
         }),function(error) {
             console.log(error);
         };
@@ -60,11 +62,21 @@ app.controller('mainController', function($scope, $http){
     };
 
     $scope.postResumeGame = function() {
+
+        var tokenToSend;
+
+        if($scope.token){
+            tokenToSend = $scope.token;
+        }else if ($scope.getTokenFromLocalStorage() != null){
+            tokenToSend = $scope.getTokenFromLocalStorage();
+        }
+
         $http({
             method : 'POST',
             url : 'GameHelper',
             data : {
-                Token : "RESUME"
+                Token : "RESUME",
+                GameId : tokenToSend
             },
             headers: {
                 'Content-Type': 'application/json'
@@ -72,33 +84,15 @@ app.controller('mainController', function($scope, $http){
         }).then(function(success) {
             console.log(success);
             $scope.board = success.data.board;
-        }),function(error) {
-            console.log(error);
-        };
-    };
-
-    $scope.gameId = "123454dfg";
-
-    $scope.postResumeGameWithToken = function() {
-        $http({
-            method : 'POST',
-            url : 'GameHelper',
-            data : {
-                Token : "RESUME_TOKEN",
-                GameId : $scope.gameId
-            },
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        }).then(function(success) {
-            console.log(success);
-            $scope.board = success.data.board;
+            $scope.gameId = success.data.tokenGame;
+            $scope.saveTokenToLocalStorage(success.data.tokenGame);
         }),function(error) {
             console.log(error);
         };
     };
 
     $scope.postPlayToServer = function(destRow, destCol){
+
         $http({
             method : 'POST',
             url : 'GameHelper',
@@ -107,7 +101,8 @@ app.controller('mainController', function($scope, $http){
                 originCol : $scope.originCol,
                 destRow : destRow,
                 destCol : destCol,
-                Token : "PLAY"
+                Token : "PLAY",
+                GameId : $scope.gameId
             },
             headers: {
                 'Content-Type' : 'application/json'
@@ -190,6 +185,14 @@ app.controller('mainController', function($scope, $http){
                 $('#modal1').modal('open');
             }
         }
+    }
+
+    $scope.saveTokenToLocalStorage = function(tokenGame){
+        localStorage.setItem("tokenGame", tokenGame)
+    }
+
+    $scope.getTokenFromLocalStorage = function () {
+        return localStorage.getItem("tokenGame");
     }
 
 });

@@ -22,7 +22,13 @@ public class GameCheckersDAO {
     public GameCheckersAdapter createNewGame(int row, int col, String player1, String player2) throws GameException {
         GameCheckersJPA checkersJPACustom = new GameCheckersJPA(row, col, player1, player2);
         checkersJPACustom.setToken(RandomStringUtils.randomAlphanumeric(10).toLowerCase());
-        saveGame(checkersJPACustom);
+        try{
+            userTransaction.begin();
+            entityManager.persist(checkersJPACustom);
+            userTransaction.commit();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
 
         return new GameCheckersAdapter(this, checkersJPACustom,row, col, player1, player2);
     }
@@ -43,7 +49,7 @@ public class GameCheckersDAO {
     public void saveGame(GameCheckersJPA checkersJPA){
         try {
             userTransaction.begin();
-            entityManager.persist(checkersJPA);
+            entityManager.merge(checkersJPA);
             userTransaction.commit();
         }catch (Exception e){
             e.printStackTrace();
