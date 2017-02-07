@@ -6,6 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
     <head>
         <title>Game Checkers</title>
@@ -21,7 +22,7 @@
 
         <h5 class="center-align marginTop" ng-show="board == undefined">New game</h5>
         <div class="row" ng-show="board == undefined">
-            <form class="col s12 m4 offset-m4" <%--method="post" action="GameHelper"--%>ng-init = "postResumeGame()" ng-submit="postConfToServer()">
+            <form class="col s12 m4 offset-m4" <%--method="post" action="GameHelper"--%><%--ng-init = "postResumeGame()"--%> ng-submit="postConfToServer()">
                 <label for="Player1">Player1</label>
                 <input type="text" id="Player1" name="Player1" value="" maxlength="20" data-ng-model="Player1" />
                 <br />
@@ -108,6 +109,16 @@
             </div>
         </div>
 
+        <script>
+            var theData = null;
+        </script>
+
+        <%--Init script--%>
+        <c:if test="${not empty jsonString}">
+            <script>
+                theData = ${jsonString};
+            </script>
+        </c:if>
 
         <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
         <script type="text/javascript" src="js/materialize.min.js"></script>

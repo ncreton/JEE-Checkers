@@ -5,6 +5,7 @@ import Exception.GameException;
 
 import javax.inject.Inject;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -16,10 +17,29 @@ import com.google.gson.JsonObject;
 /**
  * Created by Nicolas on 17/01/2017.
  */
+@WebServlet(name = "GameHelper",urlPatterns = "/GameHelper")
 public class GameHelper extends HttpServlet {
 
     @Inject
     GameCheckersBean checkersBean;
+
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        HttpServletRequest request = req;
+        String token =  req.getParameter("token");
+        //resp.sendRedirect(req.getContextPath());
+        if (token != null){
+            try {
+                checkersBean.loadFromToken(token);
+                String json = new Gson().toJson(checkersBean.getCheckersAdapter().getGameCheckersCore());
+                request.setAttribute("jsonString", json);
+                //sendResponse(resp);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        req.getRequestDispatcher("views/game.jsp").forward(req, resp);
+    }
 
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
 

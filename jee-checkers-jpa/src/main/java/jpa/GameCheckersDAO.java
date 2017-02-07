@@ -43,7 +43,7 @@ public class GameCheckersDAO {
                 .setParameter("token", token)
                 .getSingleResult();
 
-        return new GameCheckersAdapter(this, checkersJPA);
+        return new GameCheckersAdapter(this, checkersJPA, checkersJPA.getRowSize(), checkersJPA.getColSize(), checkersJPA.getPlayer1Name(), checkersJPA.getPlayer2Name());
     }
 
     public void saveGame(GameCheckersJPA checkersJPA){

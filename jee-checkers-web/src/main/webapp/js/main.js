@@ -8,7 +8,7 @@ $(document).ready(function(){
 
 var app = angular.module('AppChecker', []);
 
-app.controller('mainController', function($scope, $http){
+app.controller('mainController', function($scope, $location,$window, $http){
     $scope.range = function(min, max, step) {
         step = step || 1;
         var input = [];
@@ -32,9 +32,10 @@ app.controller('mainController', function($scope, $http){
             }
         }).then(function(success) {
             console.log(success);
-            $scope.board = success.data.board;
-            $scope.gameId = success.data.tokenGame;
+            //$scope.board = success.data.board;
+            //$scope.gameId = success.data.tokenGame;
             $scope.saveTokenToLocalStorage(success.data.tokenGame);
+            $window.location.href = '?token=' + success.data.tokenGame;
         }),function(error) {
             console.log(error);
         };
@@ -83,10 +84,12 @@ app.controller('mainController', function($scope, $http){
                 'Content-Type': 'application/json'
             }
         }).then(function(success) {
-            console.log(success);
-            $scope.board = success.data.board;
-            $scope.gameId = success.data.tokenGame;
+            // console.log(success);
+            // $scope.board = success.data.board;
+            // $scope.gameId = success.data.tokenGame;
+            // $scope.saveTokenToLocalStorage(success.data.tokenGame);
             $scope.saveTokenToLocalStorage(success.data.tokenGame);
+            $window.location.href = '?token=' + success.data.tokenGame;
         }),function(error) {
             console.log(error);
         };
@@ -200,4 +203,15 @@ app.controller('mainController', function($scope, $http){
         localStorage.removeItem("tokenGame");
     }
 
+    $scope.firstLoadGame = function () {
+        if(theData != undefined || theData != null){
+            $scope.board = theData.board;
+            $scope.gameId = theData.tokenGame;
+            $scope.Player1 = theData.board.playerWhite.name;
+            $scope.Player2 = theData.board.playerBlack.name;
+            console.log(theData);
+        }
+    }
+
+    $scope.firstLoadGame();
 });
